@@ -34,6 +34,22 @@
 #define IDC_SLIDER17                    1025
 #define IDC_SLIDER18                    1026
 #define IDC_CHECK1                      1028
+#define IDC_CHECK19                     1029
+#define IDC_CHECK20                     1030
+#define IDC_CHECK21                     1031
+#define IDC_CHECK22                     1032
+#define IDC_CHECK23                     1033
+#define IDC_CHECK24                     1034
+#define IDC_CHECK25                     1035
+#define IDC_CHECK26                     1036
+#define IDC_CHECK27                     1037
+#define IDC_CHECK28                     1038
+#define IDC_CHECK29                     1039
+#define IDC_CHECK30                     1040
+#define IDC_CHECK31                     1041
+#define IDC_CHECK32                     1042
+#define IDC_CHECK33                     1043
+#define IDC_CHECK34                     1044
 #define IDC_SLIDER19                    1045
 #define IDC_SLIDER20                    1046
 #define IDC_SLIDER21                    1047
@@ -52,6 +68,23 @@
 #define IDC_SLIDER34                    1060
 #define IDC_SLIDER35                    1061
 #define IDC_SLIDER36                    1062
+#define IDC_CHECK35                     1063
+#define IDC_CHECK36                     1064
+#define IDC_CHECK37                     1065
+#define IDC_CHECK38                     1066
+#define IDC_CHECK39                     1067
+#define IDC_CHECK40                     1068
+#define IDC_CHECK41                     1069
+#define IDC_CHECK42                     1070
+#define IDC_CHECK43                     1071
+#define IDC_CHECK44                     1072
+#define IDC_CHECK45                     1073
+#define IDC_CHECK46                     1074
+#define IDC_CHECK47                     1075
+#define IDC_CHECK48                     1076
+#define IDC_CHECK49                     1077
+#define IDC_CHECK50                     1078
+#define IDC_CHECK51                     1079
 #define IDC_CHECK2                      1080
 #define IDC_CHECK3                      1081
 #define IDC_CHECK4                      1082
@@ -69,6 +102,23 @@
 #define IDC_CHECK16                     1094
 #define IDC_CHECK17                     1095
 #define IDC_CHECK18                     1096
+#define IDC_CHECK52                     1097
+#define IDC_CHECK53                     1098
+#define IDC_CHECK54                     1099
+#define IDC_CHECK55                     1100
+#define IDC_CHECK56                     1101
+#define IDC_CHECK57                     1102
+#define IDC_CHECK58                     1103
+#define IDC_CHECK59                     1104
+#define IDC_CHECK60                     1105
+#define IDC_CHECK61                     1106
+#define IDC_CHECK62                     1107
+#define IDC_CHECK63                     1108
+#define IDC_CHECK64                     1109
+#define IDC_CHECK65                     1110
+#define IDC_CHECK66                     1111
+#define IDC_CHECK67                     1112
+#define IDC_CHECK68                     1113
 
 // Next default values for new objects
 // 
@@ -76,7 +126,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1029
+#define _APS_NEXT_CONTROL_VALUE         1030
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
