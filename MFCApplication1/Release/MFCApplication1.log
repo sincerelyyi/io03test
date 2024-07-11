@@ -1,4 +1,6 @@
-﻿  pch.cpp
-  MFCApplication1.cpp
-  MFCApplication1Dlg.cpp
-C:\Users\jiayi\source\repos\MFCApplication1\MFCApplication1\MFCApplication1Dlg.cpp(10,10): error C1083: 无法打开包括文件: “SerialCom.h”: No such file or directory
+﻿  正在生成代码
+  0 of 545 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  MFCApplication1.vcxproj -> C:\Users\jiayi\source\repos\MFCApplication1\Release\MFCApplication1.exe
