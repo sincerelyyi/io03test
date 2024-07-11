@@ -130,11 +130,6 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
-	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER1, &CMFCApplication1Dlg::OnNMCustomdrawSlider1)
-	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER19, &CMFCApplication1Dlg::OnNMCustomdrawSlider19)
-	ON_BN_CLICKED(IDC_CHECK1, &CMFCApplication1Dlg::OnBnClickedCheck1)
-	ON_BN_CLICKED(IDC_CHECK2, &CMFCApplication1Dlg::OnBnClickedCheck2)
-	ON_BN_CLICKED(IDC_CHECK3, &CMFCApplication1Dlg::OnBnClickedCheck3)
 END_MESSAGE_MAP()
 
 
@@ -287,8 +282,24 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		progress6.SetPos(serialCom.get_adc(5));
 		progress7.SetPos(serialCom.get_adc(6));
 		progress8.SetPos(serialCom.get_adc(7));
-		//serialCom.set_pwm(0, check1.Ge, slider1.GetPos(), slider17.GetPos());
-		//serialCom.set_pwm(0, 1, slider1.GetPos(), slider17.GetPos());
+		serialCom.set_pwm(0, check1.GetCheck(), 7 - slider1.GetPos(), 15 - slider19.GetPos());
+		serialCom.set_pwm(1, check2.GetCheck(), 7 - slider2.GetPos(), 15 - slider20.GetPos());
+		serialCom.set_pwm(2, check3.GetCheck(), 7 - slider3.GetPos(), 15 - slider21.GetPos());
+		serialCom.set_pwm(3, check4.GetCheck(), 7 - slider4.GetPos(), 15 - slider22.GetPos());
+		serialCom.set_pwm(4, check5.GetCheck(), 7 - slider5.GetPos(), 15 - slider23.GetPos());
+		serialCom.set_pwm(5, check6.GetCheck(), 7 - slider6.GetPos(), 15 - slider24.GetPos());
+		serialCom.set_pwm(6, check7.GetCheck(), 7 - slider7.GetPos(), 15 - slider25.GetPos());
+		serialCom.set_pwm(7, check8.GetCheck(), 7 - slider8.GetPos(), 15 - slider26.GetPos());
+		serialCom.set_pwm(8, check9.GetCheck(), 7 - slider9.GetPos(), 15 - slider27.GetPos());
+		serialCom.set_pwm(9, check10.GetCheck(), 7 - slider10.GetPos(), 15 - slider28.GetPos());
+		serialCom.set_pwm(10, check11.GetCheck(), 7 - slider11.GetPos(), 15 - slider29.GetPos());
+		serialCom.set_pwm(11, check12.GetCheck(), 7 - slider12.GetPos(), 15 - slider30.GetPos());
+		serialCom.set_pwm(12, check13.GetCheck(), 7 - slider13.GetPos(), 15 - slider31.GetPos());
+		serialCom.set_pwm(13, check14.GetCheck(), 7 - slider14.GetPos(), 15 - slider32.GetPos());
+		serialCom.set_pwm(14, check15.GetCheck(), 7 - slider15.GetPos(), 15 - slider23.GetPos());
+		serialCom.set_pwm(15, check16.GetCheck(), 7 - slider16.GetPos(), 15 - slider34.GetPos());
+		serialCom.set_pwm(16, check17.GetCheck(), 7 - slider17.GetPos(), 15 - slider35.GetPos());
+		serialCom.set_pwm(17, check18.GetCheck(), 7 - slider18.GetPos(), 15 - slider36.GetPos());
 	}
 
 	CDialogEx::OnTimer(nIDEvent); // 调用基类版本以进行默认处理（如果需要的话）  
@@ -297,50 +308,4 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 
 
 
-void CMFCApplication1Dlg::OnNMCustomdrawSlider1(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
-	// TODO: 在此添加控件通知处理程序代码
-	serialCom.set_pwm(0, 1, slider1.GetPos(), slider19.GetPos());
-	*pResult = 0;
-}
 
-
-void CMFCApplication1Dlg::OnNMCustomdrawSlider19(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
-	// TODO: 在此添加控件通知处理程序代码
-	serialCom.set_pwm(0, 1, slider1.GetPos(), slider19.GetPos());
-	*pResult = 0;
-}
-
-
-
-void CMFCApplication1Dlg::OnBnClickedCheck1()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	if (check1.GetCheck() == BST_CHECKED)
-	{
-		check1.SetCheck(BST_UNCHECKED);
-		check1.UpdateData();
-		serialCom.set_pwm(0, 0, slider1.GetPos(), slider19.GetPos());
-	}
-	else
-	{
-		check1.SetCheck(BST_CHECKED);
-		check1.UpdateData();
-		serialCom.set_pwm(0, 1, slider1.GetPos(), slider19.GetPos());
-	}
-}
-
-
-void CMFCApplication1Dlg::OnBnClickedCheck2()
-{
-	// TODO: 在此添加控件通知处理程序代码
-}
-
-
-void CMFCApplication1Dlg::OnBnClickedCheck3()
-{
-	// TODO: 在此添加控件通知处理程序代码
-}
