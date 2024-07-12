@@ -126,6 +126,56 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER34, slider34);
 	DDX_Control(pDX, IDC_SLIDER35, slider35);
 	DDX_Control(pDX, IDC_SLIDER36, slider36);
+	DDX_Check(pDX, IDC_CHECK19, out0);
+	DDX_Check(pDX, IDC_CHECK20, out1);
+	DDX_Check(pDX, IDC_CHECK21, out2);
+	DDX_Check(pDX, IDC_CHECK22, out3);
+	DDX_Check(pDX, IDC_CHECK23, out4);
+	DDX_Check(pDX, IDC_CHECK24, out5);
+	DDX_Check(pDX, IDC_CHECK25, out6);
+	DDX_Check(pDX, IDC_CHECK26, out7);
+	DDX_Check(pDX, IDC_CHECK27, out8);
+	DDX_Check(pDX, IDC_CHECK28, out9);
+	DDX_Check(pDX, IDC_CHECK29, out10);
+	DDX_Check(pDX, IDC_CHECK30, out11);
+	DDX_Check(pDX, IDC_CHECK31, out12);
+	DDX_Check(pDX, IDC_CHECK32, out13);
+	DDX_Check(pDX, IDC_CHECK33, out14);
+	DDX_Check(pDX, IDC_CHECK34, out15);
+	DDX_Check(pDX, IDC_CHECK35, out16);
+	DDX_Check(pDX, IDC_CHECK36, out17);
+	DDX_Check(pDX, IDC_CHECK37, out18);
+	DDX_Check(pDX, IDC_CHECK38, out19);
+	DDX_Check(pDX, IDC_CHECK39, out20);
+	DDX_Check(pDX, IDC_CHECK40, out21);
+	DDX_Check(pDX, IDC_CHECK41, out22);
+	DDX_Check(pDX, IDC_CHECK42, out23);
+	DDX_Check(pDX, IDC_CHECK44, in0);
+	DDX_Check(pDX, IDC_CHECK45, in1);
+	DDX_Check(pDX, IDC_CHECK46, in2);
+	DDX_Check(pDX, IDC_CHECK47, in3);
+	DDX_Check(pDX, IDC_CHECK48, in4);
+	DDX_Check(pDX, IDC_CHECK49, in5);
+	DDX_Check(pDX, IDC_CHECK50, in6);
+	DDX_Check(pDX, IDC_CHECK51, in7);
+	DDX_Check(pDX, IDC_CHECK52, in8);
+	DDX_Check(pDX, IDC_CHECK53, in9);
+	DDX_Check(pDX, IDC_CHECK54, in10);
+	DDX_Check(pDX, IDC_CHECK55, in11);
+	DDX_Check(pDX, IDC_CHECK56, in12);
+	DDX_Check(pDX, IDC_CHECK57, in13);
+	DDX_Check(pDX, IDC_CHECK58, in14);
+	DDX_Check(pDX, IDC_CHECK59, in15);
+	DDX_Check(pDX, IDC_CHECK60, in16);
+	DDX_Check(pDX, IDC_CHECK61, in17);
+	DDX_Check(pDX, IDC_CHECK62, in18);
+	DDX_Check(pDX, IDC_CHECK63, in19);
+	DDX_Check(pDX, IDC_CHECK64, in20);
+	DDX_Check(pDX, IDC_CHECK65, in21);
+	DDX_Check(pDX, IDC_CHECK66, in22);
+	DDX_Check(pDX, IDC_CHECK67, in23);
+
+
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -133,6 +183,7 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_CHECK19, &CMFCApplication1Dlg::OnBnClickedCheck19)
 END_MESSAGE_MAP()
 
 
@@ -277,6 +328,8 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 	if (nIDEvent == 1) // 替换YOUR_TIMER_ID为你的定时器ID  
 	{
 		// 执行与定时器到期相关的操作 
+		UpdateData(TRUE);
+
 		progress1.SetPos(serialCom.get_adc(0));
 		progress2.SetPos(serialCom.get_adc(1));
 		progress3.SetPos(serialCom.get_adc(2));
@@ -303,6 +356,33 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		serialCom.set_pwm(15, check16.GetCheck(), 7 - slider16.GetPos(), 15 - slider34.GetPos());
 		serialCom.set_pwm(16, check17.GetCheck(), 7 - slider17.GetPos(), 15 - slider35.GetPos());
 		serialCom.set_pwm(17, check18.GetCheck(), 7 - slider18.GetPos(), 15 - slider36.GetPos());
+
+		in0 = serialCom.get_key(0);
+		in1 = serialCom.get_key(1);
+		in2 = serialCom.get_key(2);
+		in3 = serialCom.get_key(3);
+		in4 = serialCom.get_key(4);
+		in5 = serialCom.get_key(5);
+		in6 = serialCom.get_key(6);
+		in7 = serialCom.get_key(7);
+		in8 = serialCom.get_key(8);
+		in9 = serialCom.get_key(9);
+		in10 = serialCom.get_key(10);
+		in11 = serialCom.get_key(11);
+		in12 = serialCom.get_key(12);
+		in13 = serialCom.get_key(13);
+		in14 = serialCom.get_key(14);
+		in15 = serialCom.get_key(15);
+		in16 = serialCom.get_key(16);
+		in17 = serialCom.get_key(17);
+		in18 = serialCom.get_key(18);
+		in19 = serialCom.get_key(19);
+		in20 = serialCom.get_key(20);
+		in21 = serialCom.get_key(21);
+		in22 = serialCom.get_key(22);
+		in23 = serialCom.get_key(23);
+		
+		UpdateData(FALSE);
 	}
 
 	CDialogEx::OnTimer(nIDEvent); // 调用基类版本以进行默认处理（如果需要的话）  
@@ -318,4 +398,11 @@ void CAboutDlg::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CDialogEx::OnOK();
+}
+
+
+
+void CMFCApplication1Dlg::OnBnClickedCheck19()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }
