@@ -57,6 +57,7 @@ END_MESSAGE_MAP()
 
 CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MFCAPPLICATION1_DIALOG, pParent)
+	, edit1(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -176,6 +177,8 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_CHECK67, in23);
 
 
+	DDX_Text(pDX, IDC_EDIT1, edit1);
+	DDV_MaxChars(pDX, edit1, 100);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -183,7 +186,6 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
-	ON_BN_CLICKED(IDC_CHECK19, &CMFCApplication1Dlg::OnBnClickedCheck19)
 END_MESSAGE_MAP()
 
 
@@ -381,6 +383,31 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		in21 = serialCom.get_key(21);
 		in22 = serialCom.get_key(22);
 		in23 = serialCom.get_key(23);
+
+		serialCom.set_outPin(0, out0);
+		serialCom.set_outPin(1, out1);
+		serialCom.set_outPin(2, out2);
+		serialCom.set_outPin(3, out3);
+		serialCom.set_outPin(4, out4);
+		serialCom.set_outPin(5, out5);
+		serialCom.set_outPin(6, out6);
+		serialCom.set_outPin(7, out7);
+		serialCom.set_outPin(8, out8);
+		serialCom.set_outPin(9, out9);
+		serialCom.set_outPin(10, out10);
+		serialCom.set_outPin(11, out11);
+		serialCom.set_outPin(12, out12);
+		serialCom.set_outPin(13, out13);
+		serialCom.set_outPin(14, out14);
+		serialCom.set_outPin(15, out15);
+		serialCom.set_outPin(16, out16);
+		serialCom.set_outPin(17, out17);
+		serialCom.set_outPin(18, out18);
+		serialCom.set_outPin(19, out19);
+		serialCom.set_outPin(20, out20);
+		serialCom.set_outPin(21, out21);
+		serialCom.set_outPin(22, out22);
+		serialCom.set_outPin(23, out23);
 		
 		UpdateData(FALSE);
 	}
@@ -400,9 +427,3 @@ void CAboutDlg::OnBnClickedOk()
 	CDialogEx::OnOK();
 }
 
-
-
-void CMFCApplication1Dlg::OnBnClickedCheck19()
-{
-	// TODO: 在此添加控件通知处理程序代码
-}

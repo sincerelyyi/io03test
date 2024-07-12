@@ -95,7 +95,6 @@ public:
 	CSliderCtrl slider34;
 	CSliderCtrl slider35;
 	CSliderCtrl slider36;
-	afx_msg void OnBnClickedCheck19();
 	BOOL out0;
 	BOOL out1;
 	BOOL out2;
@@ -144,4 +143,5 @@ public:
 	BOOL in21;
 	BOOL in22;
 	BOOL in23;
+	CString edit1;
 };
