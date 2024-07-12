@@ -144,4 +144,15 @@ public:
 	BOOL in22;
 	BOOL in23;
 	CString edit1;
+	CString edit2;
+	CString edit3;
+	CString edit4;
+	CString edit5;
+	CString edit6;
+	CString edit7;
+	CString edit8;
+	CString edit9;
+
+	afx_msg void OnBnClickedButton5();
+	afx_msg void OnBnClickedButton6();
 };

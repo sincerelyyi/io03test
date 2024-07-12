@@ -14,7 +14,6 @@
 #endif
 
 SerialCom serialCom;
-
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialogEx
@@ -178,7 +177,14 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 
 
 	DDX_Text(pDX, IDC_EDIT1, edit1);
-	DDV_MaxChars(pDX, edit1, 100);
+	DDX_Text(pDX, IDC_EDIT2, edit2);
+	DDX_Text(pDX, IDC_EDIT3, edit3);
+	DDX_Text(pDX, IDC_EDIT4, edit4);
+	DDX_Text(pDX, IDC_EDIT5, edit5);
+	DDX_Text(pDX, IDC_EDIT6, edit6);
+	DDX_Text(pDX, IDC_EDIT7, edit7);
+	DDX_Text(pDX, IDC_EDIT8, edit8);
+	DDX_Text(pDX, IDC_EDIT9, edit9);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -186,6 +192,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_BUTTON5, &CMFCApplication1Dlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON6, &CMFCApplication1Dlg::OnBnClickedButton6)
 END_MESSAGE_MAP()
 
 
@@ -271,7 +279,6 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	slider34.SetRange(0, 15);
 	slider35.SetRange(0, 15);
 	slider36.SetRange(0, 15);
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -408,6 +415,10 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		serialCom.set_outPin(21, out21);
 		serialCom.set_outPin(22, out22);
 		serialCom.set_outPin(23, out23);
+		edit1.Format(_T("%d"), serialCom.get_coin());
+		edit2.Format(_T("%d℃"), serialCom.get_mcu_temperature());
+		edit3.Format(_T("%.1fV"), (float)serialCom.get_mcu_voltage() / 10);
+		edit4.Format(_T("%.1fV"), (float)serialCom.get_battery_voltage() / 10);
 		
 		UpdateData(FALSE);
 	}
@@ -427,3 +438,17 @@ void CAboutDlg::OnBnClickedOk()
 	CDialogEx::OnOK();
 }
 
+
+
+void CMFCApplication1Dlg::OnBnClickedButton5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	serialCom.decrease_coins(1);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	serialCom.decrease_coins(0xffff);
+}

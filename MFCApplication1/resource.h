@@ -135,6 +135,8 @@
 #define IDC_SLIDER38                    1129
 #define IDC_SLIDER39                    1130
 #define IDC_SLIDER40                    1131
+#define IDC_BUTTON5                     1132
+#define IDC_BUTTON6                     1133
 
 // Next default values for new objects
 // 
