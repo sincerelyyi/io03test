@@ -22,8 +22,9 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <ProjectGuid>{E8F82A81-3FDB-4275-8555-1314B6953506}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
-    <RootNamespace>MFCApplication1</RootNamespace>
+    <RootNamespace>fangli_io03test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>fangli_io03test</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
