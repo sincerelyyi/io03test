@@ -185,6 +185,7 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT7, edit7);
 	DDX_Text(pDX, IDC_EDIT8, edit8);
 	DDX_Text(pDX, IDC_EDIT9, edit9);
+	DDX_Text(pDX, IDC_EDIT10, edit10);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -194,6 +195,10 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BUTTON5, &CMFCApplication1Dlg::OnBnClickedButton5)
 	ON_BN_CLICKED(IDC_BUTTON6, &CMFCApplication1Dlg::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON1, &CMFCApplication1Dlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CMFCApplication1Dlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CMFCApplication1Dlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CMFCApplication1Dlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -419,6 +424,12 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		edit2.Format(_T("%d℃"), serialCom.get_mcu_temperature());
 		edit3.Format(_T("%.1fV"), (float)serialCom.get_mcu_voltage() / 10);
 		edit4.Format(_T("%.1fV"), (float)serialCom.get_battery_voltage() / 10);
+		edit5.Format(_T("%d"), serialCom.get_counter(COUNTER_COIN));
+		edit6.Format(_T("%d"), serialCom.get_counter(COUNTER_1));
+		edit7 = serialCom.get_hardware();
+		edit8 = serialCom.get_software();
+		edit9 = serialCom.get_production_date();
+		edit10 = serialCom.get_uid();
 		
 		UpdateData(FALSE);
 	}
@@ -451,4 +462,32 @@ void CMFCApplication1Dlg::OnBnClickedButton6()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	serialCom.decrease_coins(0xffff);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	serialCom.set_counter(COUNTER_COIN, serialCom.get_counter(COUNTER_COIN) + 10);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	serialCom.set_counter(COUNTER_COIN,0);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	serialCom.set_counter(COUNTER_1, serialCom.get_counter(COUNTER_1) + 10);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton4()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	serialCom.set_counter(COUNTER_1, 0);
 }
