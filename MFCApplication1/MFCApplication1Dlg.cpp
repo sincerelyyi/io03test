@@ -7,13 +7,12 @@
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
 #include "afxdialogex.h"
-#include "SerialCom.h"
+#include "../fangli_io03.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-SerialCom serialCom;
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialogEx
@@ -344,92 +343,92 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		// 执行与定时器到期相关的操作 
 		UpdateData(TRUE);
 
-		progress1.SetPos(serialCom.get_adc(0));
-		progress2.SetPos(serialCom.get_adc(1));
-		progress3.SetPos(serialCom.get_adc(2));
-		progress4.SetPos(serialCom.get_adc(3));
-		progress5.SetPos(serialCom.get_adc(4));
-		progress6.SetPos(serialCom.get_adc(5));
-		progress7.SetPos(serialCom.get_adc(6));
-		progress8.SetPos(serialCom.get_adc(7));
-		serialCom.set_pwm(0, check1.GetCheck(), 7 - slider1.GetPos(), 15 - slider19.GetPos());
-		serialCom.set_pwm(1, check2.GetCheck(), 7 - slider2.GetPos(), 15 - slider20.GetPos());
-		serialCom.set_pwm(2, check3.GetCheck(), 7 - slider3.GetPos(), 15 - slider21.GetPos());
-		serialCom.set_pwm(3, check4.GetCheck(), 7 - slider4.GetPos(), 15 - slider22.GetPos());
-		serialCom.set_pwm(4, check5.GetCheck(), 7 - slider5.GetPos(), 15 - slider23.GetPos());
-		serialCom.set_pwm(5, check6.GetCheck(), 7 - slider6.GetPos(), 15 - slider24.GetPos());
-		serialCom.set_pwm(6, check7.GetCheck(), 7 - slider7.GetPos(), 15 - slider25.GetPos());
-		serialCom.set_pwm(7, check8.GetCheck(), 7 - slider8.GetPos(), 15 - slider26.GetPos());
-		serialCom.set_pwm(8, check9.GetCheck(), 7 - slider9.GetPos(), 15 - slider27.GetPos());
-		serialCom.set_pwm(9, check10.GetCheck(), 7 - slider10.GetPos(), 15 - slider28.GetPos());
-		serialCom.set_pwm(10, check11.GetCheck(), 7 - slider11.GetPos(), 15 - slider29.GetPos());
-		serialCom.set_pwm(11, check12.GetCheck(), 7 - slider12.GetPos(), 15 - slider30.GetPos());
-		serialCom.set_pwm(12, check13.GetCheck(), 7 - slider13.GetPos(), 15 - slider31.GetPos());
-		serialCom.set_pwm(13, check14.GetCheck(), 7 - slider14.GetPos(), 15 - slider32.GetPos());
-		serialCom.set_pwm(14, check15.GetCheck(), 7 - slider15.GetPos(), 15 - slider23.GetPos());
-		serialCom.set_pwm(15, check16.GetCheck(), 7 - slider16.GetPos(), 15 - slider34.GetPos());
-		serialCom.set_pwm(16, check17.GetCheck(), 7 - slider17.GetPos(), 15 - slider35.GetPos());
-		serialCom.set_pwm(17, check18.GetCheck(), 7 - slider18.GetPos(), 15 - slider36.GetPos());
+		progress1.SetPos(get_adc(0));
+		progress2.SetPos(get_adc(1));
+		progress3.SetPos(get_adc(2));
+		progress4.SetPos(get_adc(3));
+		progress5.SetPos(get_adc(4));
+		progress6.SetPos(get_adc(5));
+		progress7.SetPos(get_adc(6));
+		progress8.SetPos(get_adc(7));
+		set_pwm(0, check1.GetCheck(), 7 - slider1.GetPos(), 15 - slider19.GetPos());
+		set_pwm(1, check2.GetCheck(), 7 - slider2.GetPos(), 15 - slider20.GetPos());
+		set_pwm(2, check3.GetCheck(), 7 - slider3.GetPos(), 15 - slider21.GetPos());
+		set_pwm(3, check4.GetCheck(), 7 - slider4.GetPos(), 15 - slider22.GetPos());
+		set_pwm(4, check5.GetCheck(), 7 - slider5.GetPos(), 15 - slider23.GetPos());
+		set_pwm(5, check6.GetCheck(), 7 - slider6.GetPos(), 15 - slider24.GetPos());
+		set_pwm(6, check7.GetCheck(), 7 - slider7.GetPos(), 15 - slider25.GetPos());
+		set_pwm(7, check8.GetCheck(), 7 - slider8.GetPos(), 15 - slider26.GetPos());
+		set_pwm(8, check9.GetCheck(), 7 - slider9.GetPos(), 15 - slider27.GetPos());
+		set_pwm(9, check10.GetCheck(), 7 - slider10.GetPos(), 15 - slider28.GetPos());
+		set_pwm(10, check11.GetCheck(), 7 - slider11.GetPos(), 15 - slider29.GetPos());
+		set_pwm(11, check12.GetCheck(), 7 - slider12.GetPos(), 15 - slider30.GetPos());
+		set_pwm(12, check13.GetCheck(), 7 - slider13.GetPos(), 15 - slider31.GetPos());
+		set_pwm(13, check14.GetCheck(), 7 - slider14.GetPos(), 15 - slider32.GetPos());
+		set_pwm(14, check15.GetCheck(), 7 - slider15.GetPos(), 15 - slider23.GetPos());
+		set_pwm(15, check16.GetCheck(), 7 - slider16.GetPos(), 15 - slider34.GetPos());
+		set_pwm(16, check17.GetCheck(), 7 - slider17.GetPos(), 15 - slider35.GetPos());
+		set_pwm(17, check18.GetCheck(), 7 - slider18.GetPos(), 15 - slider36.GetPos());
 
-		in0 = serialCom.get_key(0);
-		in1 = serialCom.get_key(1);
-		in2 = serialCom.get_key(2);
-		in3 = serialCom.get_key(3);
-		in4 = serialCom.get_key(4);
-		in5 = serialCom.get_key(5);
-		in6 = serialCom.get_key(6);
-		in7 = serialCom.get_key(7);
-		in8 = serialCom.get_key(8);
-		in9 = serialCom.get_key(9);
-		in10 = serialCom.get_key(10);
-		in11 = serialCom.get_key(11);
-		in12 = serialCom.get_key(12);
-		in13 = serialCom.get_key(13);
-		in14 = serialCom.get_key(14);
-		in15 = serialCom.get_key(15);
-		in16 = serialCom.get_key(16);
-		in17 = serialCom.get_key(17);
-		in18 = serialCom.get_key(18);
-		in19 = serialCom.get_key(19);
-		in20 = serialCom.get_key(20);
-		in21 = serialCom.get_key(21);
-		in22 = serialCom.get_key(22);
-		in23 = serialCom.get_key(23);
+		in0 = get_key(0);
+		in1 = get_key(1);
+		in2 = get_key(2);
+		in3 = get_key(3);
+		in4 = get_key(4);
+		in5 = get_key(5);
+		in6 = get_key(6);
+		in7 = get_key(7);
+		in8 = get_key(8);
+		in9 = get_key(9);
+		in10 = get_key(10);
+		in11 = get_key(11);
+		in12 = get_key(12);
+		in13 = get_key(13);
+		in14 = get_key(14);
+		in15 = get_key(15);
+		in16 = get_key(16);
+		in17 = get_key(17);
+		in18 = get_key(18);
+		in19 = get_key(19);
+		in20 = get_key(20);
+		in21 = get_key(21);
+		in22 = get_key(22);
+		in23 = get_key(23);
 
-		serialCom.set_outPin(0, out0);
-		serialCom.set_outPin(1, out1);
-		serialCom.set_outPin(2, out2);
-		serialCom.set_outPin(3, out3);
-		serialCom.set_outPin(4, out4);
-		serialCom.set_outPin(5, out5);
-		serialCom.set_outPin(6, out6);
-		serialCom.set_outPin(7, out7);
-		serialCom.set_outPin(8, out8);
-		serialCom.set_outPin(9, out9);
-		serialCom.set_outPin(10, out10);
-		serialCom.set_outPin(11, out11);
-		serialCom.set_outPin(12, out12);
-		serialCom.set_outPin(13, out13);
-		serialCom.set_outPin(14, out14);
-		serialCom.set_outPin(15, out15);
-		serialCom.set_outPin(16, out16);
-		serialCom.set_outPin(17, out17);
-		serialCom.set_outPin(18, out18);
-		serialCom.set_outPin(19, out19);
-		serialCom.set_outPin(20, out20);
-		serialCom.set_outPin(21, out21);
-		serialCom.set_outPin(22, out22);
-		serialCom.set_outPin(23, out23);
-		edit1.Format(_T("%d"), serialCom.get_coin());
-		edit2.Format(_T("%d℃"), serialCom.get_mcu_temperature());
-		edit3.Format(_T("%.1fV"), (float)serialCom.get_mcu_voltage() / 10);
-		edit4.Format(_T("%.1fV"), (float)serialCom.get_battery_voltage() / 10);
-		edit5.Format(_T("%d"), serialCom.get_counter(COUNTER_COIN));
-		edit6.Format(_T("%d"), serialCom.get_counter(COUNTER_1));
-		edit7 = serialCom.get_hardware();
-		edit8 = serialCom.get_software();
-		edit9 = serialCom.get_production_date();
-		edit10 = serialCom.get_uid();
+		set_outPin(0, out0);
+		set_outPin(1, out1);
+		set_outPin(2, out2);
+		set_outPin(3, out3);
+		set_outPin(4, out4);
+		set_outPin(5, out5);
+		set_outPin(6, out6);
+		set_outPin(7, out7);
+		set_outPin(8, out8);
+		set_outPin(9, out9);
+		set_outPin(10, out10);
+		set_outPin(11, out11);
+		set_outPin(12, out12);
+		set_outPin(13, out13);
+		set_outPin(14, out14);
+		set_outPin(15, out15);
+		set_outPin(16, out16);
+		set_outPin(17, out17);
+		set_outPin(18, out18);
+		set_outPin(19, out19);
+		set_outPin(20, out20);
+		set_outPin(21, out21);
+		set_outPin(22, out22);
+		set_outPin(23, out23);
+		edit1.Format(_T("%d"), get_coin());
+		edit2.Format(_T("%d℃"), get_mcu_temperature());
+		edit3.Format(_T("%.1fV"), (float)get_mcu_voltage() / 10);
+		edit4.Format(_T("%.1fV"), (float)get_battery_voltage() / 10);
+		edit5.Format(_T("%d"), get_counter(COUNTER_COIN));
+		edit6.Format(_T("%d"), get_counter(COUNTER_1));
+		edit7 = get_hardware();
+		edit8 = get_software();
+		edit9 = get_production_date();
+		edit10 = get_uid();
 		
 		UpdateData(FALSE);
 	}
@@ -454,40 +453,40 @@ void CAboutDlg::OnBnClickedOk()
 void CMFCApplication1Dlg::OnBnClickedButton5()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	serialCom.decrease_coins(1);
+	decrease_coins(1);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton6()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	serialCom.decrease_coins(0xffff);
+	decrease_coins(0xffff);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	serialCom.set_counter(COUNTER_COIN, serialCom.get_counter(COUNTER_COIN) + 10);
+	set_counter(COUNTER_COIN, get_counter(COUNTER_COIN) + 10);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	serialCom.set_counter(COUNTER_COIN,0);
+	set_counter(COUNTER_COIN,0);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	serialCom.set_counter(COUNTER_1, serialCom.get_counter(COUNTER_1) + 10);
+	set_counter(COUNTER_1, get_counter(COUNTER_1) + 10);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	serialCom.set_counter(COUNTER_1, 0);
+	set_counter(COUNTER_1, 0);
 }
