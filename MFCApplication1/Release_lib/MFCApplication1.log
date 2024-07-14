@@ -1,0 +1,8 @@
+﻿  正在生成代码
+C:\Users\jiayi\github\SerialPortCommunication\ComCommunicationDemo\ComCommunicationDemo\SerialCom.cpp(17): warning C4172: 返回局部变量或临时变量的地址: buff
+C:\Users\jiayi\github\SerialPortCommunication\ComCommunicationDemo\ComCommunicationDemo\fangli_io03.cpp(23): warning C4172: 返回局部变量或临时变量的地址: buff
+  3 of 589 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  MFCApplication1.vcxproj -> C:\Users\jiayi\source\repos\fangli_io03test\Release_lib\fangli_io03test.exe

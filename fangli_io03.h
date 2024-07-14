@@ -1,5 +1,16 @@
 #pragma once
 #include <stdint.h>
+
+#ifdef DLLLIBRARY_EXPORTS  
+#define LIBRARY_API extern "C" __declspec(dllexport)  
+#elif  DLLLIBRARY_INPORTS
+#define LIBRARY_API extern "C" __declspec(dllimport)
+#else
+#define LIBRARY_API extern	
+#endif  
+
+
+
 // base input key_id
 #define INPUT_UP                0
 #define INPUT_DOWN              1
@@ -59,20 +70,22 @@
 #define COUNTER_COIN            0
 #define COUNTER_1               1
 
-extern char* get_hardware(void);
-extern char* get_software(void);
-extern char* get_production_date(void);
-extern char* get_uid(void);
-extern uint16_t get_counter(uint8_t counter_id);
-extern void set_counter(uint8_t counter_id, uint16_t counter_num);
-extern uint16_t get_coin();
-extern uint16_t decrease_coins(uint16_t coins); //返回实际扣币数。
+LIBRARY_API char* get_hardware(void);
+LIBRARY_API char* get_software(void);
+LIBRARY_API char* get_production_date(void);
+LIBRARY_API char* get_uid(void);
+LIBRARY_API uint16_t get_counter(uint8_t counter_id);
+LIBRARY_API void set_counter(uint8_t counter_id, uint16_t counter_num);
+LIBRARY_API uint16_t get_coin();
+LIBRARY_API uint16_t decrease_coins(uint16_t coins); //返回实际扣币数。
 
-extern uint8_t get_mcu_temperature(void);
-extern uint8_t get_mcu_voltage(void);
-extern uint8_t get_battery_voltage(void);
-extern bool get_key(uint8_t key_id);
-extern uint8_t get_adc(uint8_t adc_id);
+LIBRARY_API uint8_t get_mcu_temperature(void);
+LIBRARY_API uint8_t get_mcu_voltage(void);
+LIBRARY_API uint8_t get_battery_voltage(void);
+LIBRARY_API bool get_key(uint8_t key_id);
+LIBRARY_API uint8_t get_adc(uint8_t adc_id);
 
-extern void set_pwm(uint8_t pwm_id, uint8_t type, uint8_t interval, uint8_t bright);
-extern void set_outPin(uint8_t out_id, bool level);
+LIBRARY_API void set_pwm(uint8_t pwm_id, uint8_t type, uint8_t interval, uint8_t bright);
+LIBRARY_API void set_outPin(uint8_t out_id, bool level);
+LIBRARY_API bool stop_monitoring();
+
