@@ -184,6 +184,7 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT8, edit8);
 	DDX_Text(pDX, IDC_EDIT9, edit9);
 	DDX_Text(pDX, IDC_EDIT10, edit10);
+	DDX_Text(pDX, IDC_EDIT11, edit11);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -428,6 +429,7 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		edit8 = get_software();
 		edit9 = get_production_date();
 		edit10 = get_uid();
+		edit11 = get_lib();
 		
 		UpdateData(FALSE);
 	}

@@ -1,8 +1,6 @@
-﻿  pch.cpp
-  MFCApplication1.cpp
-  MFCApplication1Dlg.cpp
-  正在生成代码
-  Previous IPDB not found, fall back to full compilation.
-  All 210 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+﻿  正在生成代码
+  0 of 210 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   MFCApplication1.vcxproj -> C:\Users\jiayi\source\repos\fangli_io03test\Release_dll\fangli_io03test.exe

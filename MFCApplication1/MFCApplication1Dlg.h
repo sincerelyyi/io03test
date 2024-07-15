@@ -153,6 +153,7 @@ public:
 	CString edit8;
 	CString edit9;
 	CString edit10;
+	CString edit11;
 
 	afx_msg void OnBnClickedButton5();
 	afx_msg void OnBnClickedButton6();
