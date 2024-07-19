@@ -7,7 +7,7 @@
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
 #include "afxdialogex.h"
-#include "../fangli_io03.h"
+#include "fangli_io03.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -468,7 +468,10 @@ void CMFCApplication1Dlg::OnBnClickedButton6()
 void CMFCApplication1Dlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	set_counter(COUNTER_COIN, get_counter(COUNTER_COIN) + 10);
+	if(get_counter(COUNTER_COIN) + 100 < 0xffff)
+		set_counter(COUNTER_COIN, get_counter(COUNTER_COIN) + 100);
+	else
+		set_counter(COUNTER_COIN, 0xfffe);
 }
 
 
@@ -482,7 +485,10 @@ void CMFCApplication1Dlg::OnBnClickedButton2()
 void CMFCApplication1Dlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	set_counter(COUNTER_1, get_counter(COUNTER_1) + 10);
+	if(get_counter(COUNTER_1) + 100 < 0xffff)
+		set_counter(COUNTER_1, get_counter(COUNTER_1) + 100);
+	else
+		set_counter(COUNTER_1, 0xfffe);
 }
 
 

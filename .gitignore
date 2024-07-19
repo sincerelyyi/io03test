@@ -1,5 +1,6 @@
 Debug/
-Release/
+MFCApplication1/Release_dll
+MFCApplication1/Release_lib
+MFCApplication1/x64
 .vs
- MFCApplication1/Release/
- MFCApplication1/Debug/
+MFCApplication1/Debug/
