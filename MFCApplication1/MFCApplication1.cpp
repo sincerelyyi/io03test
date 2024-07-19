@@ -6,7 +6,7 @@
 #include "framework.h"
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
-#include "../fangli_io03.h"
+#include "fangli_io03.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
