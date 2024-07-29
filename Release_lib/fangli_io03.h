@@ -145,7 +145,7 @@ LIBRARY_API bool get_key(uint8_t key_id);
 /*
 * 获取io板8个adc值
 *  adc_id：0-7
-* true：表示按键按下。false：表示松开
+* 返回一个0-255的adc值
 */
 LIBRARY_API uint8_t get_adc(uint8_t adc_id);
 /*
