@@ -185,6 +185,7 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT9, edit9);
 	DDX_Text(pDX, IDC_EDIT10, edit10);
 	DDX_Text(pDX, IDC_EDIT11, edit11);
+	DDX_Text(pDX, IDC_EDIT12, edit12);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -237,6 +238,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	//ShowWindow(SW_MINIMIZE);
 
 	// TODO: 在此添加额外的初始化代码
+
 	// 设置定时器，假设定时器ID为1，时间间隔为100毫秒（1秒）  
 	SetTimer(1, 100, NULL);
 	progress1.SetRange(0, 255);
@@ -247,42 +249,46 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	progress6.SetRange(0, 255);
 	progress7.SetRange(0, 255);
 	progress8.SetRange(0, 255);
-	slider1.SetRange(0, 7);
-	slider2.SetRange(0, 7);
-	slider3.SetRange(0, 7);
-	slider4.SetRange(0, 7);
-	slider5.SetRange(0, 7);
-	slider6.SetRange(0, 7);
-	slider7.SetRange(0, 7);
-	slider8.SetRange(0, 7);
-	slider9.SetRange(0, 7);
-	slider10.SetRange(0, 7);
-	slider11.SetRange(0, 7);
-	slider12.SetRange(0, 7);
-	slider13.SetRange(0, 7);
-	slider14.SetRange(0, 7);
-	slider15.SetRange(0, 7);
-	slider16.SetRange(0, 7);
-	slider17.SetRange(0, 7);
-	slider18.SetRange(0, 7);
-	slider19.SetRange(0, 15);
-	slider20.SetRange(0, 15);
-	slider21.SetRange(0, 15);
-	slider22.SetRange(0, 15);
-	slider23.SetRange(0, 15);
-	slider24.SetRange(0, 15);
-	slider25.SetRange(0, 15);
-	slider26.SetRange(0, 15);
-	slider27.SetRange(0, 15);
-	slider28.SetRange(0, 15);
-	slider29.SetRange(0, 15);
-	slider30.SetRange(0, 15);
-	slider31.SetRange(0, 15);
-	slider32.SetRange(0, 15);
-	slider33.SetRange(0, 15);
-	slider34.SetRange(0, 15);
-	slider35.SetRange(0, 15);
-	slider36.SetRange(0, 15);
+	slider1.SetRange(0, 100);
+	slider2.SetRange(0, 100);
+	slider3.SetRange(0, 100);
+	slider4.SetRange(0, 100);
+	slider5.SetRange(0, 100);
+	slider6.SetRange(0, 100);
+	slider7.SetRange(0, 100);
+	slider8.SetRange(0, 100);
+	slider9.SetRange(0, 100);
+	slider10.SetRange(0, 100);
+	slider11.SetRange(0, 100);
+	slider12.SetRange(0, 100);
+	slider13.SetRange(0, 100);
+	slider14.SetRange(0, 100);
+	slider15.SetRange(0, 100);
+	slider16.SetRange(0, 100);
+	slider17.SetRange(0, 100);
+	slider18.SetRange(0, 100);
+	slider19.SetRange(0, 255);
+	slider20.SetRange(0, 255);
+	slider21.SetRange(0, 255);
+	slider22.SetRange(0, 255);
+	slider23.SetRange(0, 255);
+	slider24.SetRange(0, 255);
+	slider25.SetRange(0, 255);
+	slider26.SetRange(0, 255);
+	slider27.SetRange(0, 255);
+	slider28.SetRange(0, 255);
+	slider29.SetRange(0, 255);
+	slider30.SetRange(0, 255);
+	slider31.SetRange(0, 255);
+	slider32.SetRange(0, 255);
+	slider33.SetRange(0, 255);
+	slider34.SetRange(0, 255);
+	slider35.SetRange(0, 255);
+	slider36.SetRange(0, 255);
+	if (connect_state() < 1)
+	{
+		MessageBox(TEXT("没有连接上IO板！"), TEXT("Error"), MB_OK | MB_ICONINFORMATION);
+	}
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -351,24 +357,293 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		progress6.SetPos(get_adc(5));
 		progress7.SetPos(get_adc(6));
 		progress8.SetPos(get_adc(7));
-		set_pwm(0, check1.GetCheck(), 7 - slider1.GetPos(), 15 - slider19.GetPos());
-		set_pwm(1, check2.GetCheck(), 7 - slider2.GetPos(), 15 - slider20.GetPos());
-		set_pwm(2, check3.GetCheck(), 7 - slider3.GetPos(), 15 - slider21.GetPos());
-		set_pwm(3, check4.GetCheck(), 7 - slider4.GetPos(), 15 - slider22.GetPos());
-		set_pwm(4, check5.GetCheck(), 7 - slider5.GetPos(), 15 - slider23.GetPos());
-		set_pwm(5, check6.GetCheck(), 7 - slider6.GetPos(), 15 - slider24.GetPos());
-		set_pwm(6, check7.GetCheck(), 7 - slider7.GetPos(), 15 - slider25.GetPos());
-		set_pwm(7, check8.GetCheck(), 7 - slider8.GetPos(), 15 - slider26.GetPos());
-		set_pwm(8, check9.GetCheck(), 7 - slider9.GetPos(), 15 - slider27.GetPos());
-		set_pwm(9, check10.GetCheck(), 7 - slider10.GetPos(), 15 - slider28.GetPos());
-		set_pwm(10, check11.GetCheck(), 7 - slider11.GetPos(), 15 - slider29.GetPos());
-		set_pwm(11, check12.GetCheck(), 7 - slider12.GetPos(), 15 - slider30.GetPos());
-		set_pwm(12, check13.GetCheck(), 7 - slider13.GetPos(), 15 - slider31.GetPos());
-		set_pwm(13, check14.GetCheck(), 7 - slider14.GetPos(), 15 - slider32.GetPos());
-		set_pwm(14, check15.GetCheck(), 7 - slider15.GetPos(), 15 - slider23.GetPos());
-		set_pwm(15, check16.GetCheck(), 7 - slider16.GetPos(), 15 - slider34.GetPos());
-		set_pwm(16, check17.GetCheck(), 7 - slider17.GetPos(), 15 - slider35.GetPos());
-		set_pwm(17, check18.GetCheck(), 7 - slider18.GetPos(), 15 - slider36.GetPos());
+		if (slider1.GetPos() == 100)
+		{
+			set_pwm_normal(0,255 - slider19.GetPos());
+		}
+		else
+		{
+			if (check1.GetCheck())
+			{
+				set_pwm_blink(0,100 - slider1.GetPos(), 255 - slider19.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(0, 100 - slider1.GetPos(), 255 - slider19.GetPos());
+			}
+		}
+
+		if (slider2.GetPos() == 100)
+		{
+			set_pwm_normal(1, 255 - slider20.GetPos());
+		}
+		else
+		{
+			if (check2.GetCheck())
+			{
+				set_pwm_blink(1, 100 - slider2.GetPos(), 255 - slider20.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(1, 100 - slider2.GetPos(), 255 - slider20.GetPos());
+			}
+		}
+
+		if (slider3.GetPos() == 100)
+		{
+			set_pwm_normal(2, 255 - slider21.GetPos());
+		}
+		else
+		{
+			if (check3.GetCheck())
+			{
+				set_pwm_blink(2, 100 - slider3.GetPos(), 255 - slider21.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(2, 100 - slider3.GetPos(), 255 - slider21.GetPos());
+			}
+		}
+
+		if (slider4.GetPos() == 100)
+		{
+			set_pwm_normal(3, 255 - slider20.GetPos());
+		}
+		else
+		{
+			if (check4.GetCheck())
+			{
+				set_pwm_blink(3, 100 - slider4.GetPos(), 255 - slider22.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(3, 100 - slider4.GetPos(), 255 - slider22.GetPos());
+			}
+		}
+
+		if (slider5.GetPos() == 100)
+		{
+			set_pwm_normal(4, 255 - slider23.GetPos());
+		}
+		else
+		{
+			if (check5.GetCheck())
+			{
+				set_pwm_blink(4, 100 - slider5.GetPos(), 255 - slider23.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(4, 100 - slider5.GetPos(), 255 - slider23.GetPos());
+			}
+		}
+
+		if (slider6.GetPos() == 100)
+		{
+			set_pwm_normal(5, 255 - slider24.GetPos());
+		}
+		else
+		{
+			if (check6.GetCheck())
+			{
+				set_pwm_blink(5, 100 - slider6.GetPos(), 255 - slider24.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(5, 100 - slider6.GetPos(), 255 - slider24.GetPos());
+			}
+		}
+
+		if (slider7.GetPos() == 100)
+		{
+			set_pwm_normal(6, 255 - slider25.GetPos());
+		}
+		else
+		{
+			if (check7.GetCheck())
+			{
+				set_pwm_blink(6, 100 - slider7.GetPos(), 255 - slider25.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(6, 100 - slider7.GetPos(), 255 - slider25.GetPos());
+			}
+		}
+
+		if (slider8.GetPos() == 100)
+		{
+			set_pwm_normal(7, 255 - slider26.GetPos());
+		}
+		else
+		{
+			if (check8.GetCheck())
+			{
+				set_pwm_blink(7, 100 - slider8.GetPos(), 255 - slider26.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(7, 100 - slider8.GetPos(), 255 - slider26.GetPos());
+			}
+		}
+
+		if (slider9.GetPos() == 100)
+		{
+			set_pwm_normal(8, 255 - slider27.GetPos());
+		}
+		else
+		{
+			if (check9.GetCheck())
+			{
+				set_pwm_blink(8, 100 - slider9.GetPos(), 255 - slider27.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(8, 100 - slider9.GetPos(), 255 - slider27.GetPos());
+			}
+		}
+
+		if (slider10.GetPos() == 100)
+		{
+			set_pwm_normal(9, 255 - slider28.GetPos());
+		}
+		else
+		{
+			if (check10.GetCheck())
+			{
+				set_pwm_blink(9, 100 - slider10.GetPos(), 255 - slider28.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(9, 100 - slider10.GetPos(), 255 - slider28.GetPos());
+			}
+		}
+
+		if (slider11.GetPos() == 100)
+		{
+			set_pwm_normal(10, 255 - slider29.GetPos());
+		}
+		else
+		{
+			if (check11.GetCheck())
+			{
+				set_pwm_blink(10, 100 - slider11.GetPos(), 255 - slider29.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(10, 100 - slider11.GetPos(), 255 - slider29.GetPos());
+			}
+		}
+
+		if (slider12.GetPos() == 100)
+		{
+			set_pwm_normal(11, 255 - slider30.GetPos());
+		}
+		else
+		{
+			if (check12.GetCheck())
+			{
+				set_pwm_blink(11, 100 - slider12.GetPos(), 255 - slider30.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(11, 100 - slider12.GetPos(), 255 - slider30.GetPos());
+			}
+		}
+
+		if (slider13.GetPos() == 100)
+		{
+			set_pwm_normal(12, 255 - slider31.GetPos());
+		}
+		else
+		{
+			if (check13.GetCheck())
+			{
+				set_pwm_blink(12, 100 - slider13.GetPos(), 255 - slider31.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(12, 100 - slider13.GetPos(), 255 - slider31.GetPos());
+			}
+		}
+
+		if (slider14.GetPos() == 100)
+		{
+			set_pwm_normal(13, 255 - slider32.GetPos());
+		}
+		else
+		{
+			if (check14.GetCheck())
+			{
+				set_pwm_blink(13, 100 - slider14.GetPos(), 255 - slider32.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(13, 100 - slider14.GetPos(), 255 - slider32.GetPos());
+			}
+		}
+
+		if (slider15.GetPos() == 100)
+		{
+			set_pwm_normal(14, 255 - slider33.GetPos());
+		}
+		else
+		{
+			if (check15.GetCheck())
+			{
+				set_pwm_blink(14, 100 - slider15.GetPos(), 255 - slider33.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(14, 100 - slider15.GetPos(), 255 - slider33.GetPos());
+			}
+		}
+
+		if (slider16.GetPos() == 100)
+		{
+			set_pwm_normal(15, 255 - slider34.GetPos());
+		}
+		else
+		{
+			if (check16.GetCheck())
+			{
+				set_pwm_blink(15, 100 - slider16.GetPos(), 255 - slider34.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(15, 100 - slider16.GetPos(), 255 - slider34.GetPos());
+			}
+		}
+
+		if (slider17.GetPos() == 100)
+		{
+			set_pwm_normal(16, 255 - slider35.GetPos());
+		}
+		else
+		{
+			if (check17.GetCheck())
+			{
+				set_pwm_blink(16, 100 - slider17.GetPos(), 255 - slider35.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(16, 100 - slider17.GetPos(), 255 - slider35.GetPos());
+			}
+		}
+
+		if (slider18.GetPos() == 100)
+		{
+			set_pwm_normal(17, 255 - slider36.GetPos());
+		}
+		else
+		{
+			if (check18.GetCheck())
+			{
+				set_pwm_blink(17, 100 - slider18.GetPos(), 255 - slider36.GetPos());
+			}
+			else
+			{
+				set_pwm_breathe(17, 100 - slider18.GetPos(), 255 - slider36.GetPos());
+			}
+		}
 
 		in0 = get_key(0);
 		in1 = get_key(1);
@@ -419,19 +694,27 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		set_outPin(21, out21);
 		set_outPin(22, out22);
 		set_outPin(23, out23);
-		edit1.Format(_T("%d"), get_coin());
+		edit1.Format(_T("%u"), get_coin());
 		edit2.Format(_T("%d℃"), get_mcu_temperature());
 		edit3.Format(_T("%.1fV"), (float)get_mcu_voltage() / 10);
 		edit4.Format(_T("%.1fV"), (float)get_battery_voltage() / 10);
-		edit5.Format(_T("%d"), get_counter(COUNTER_COIN));
-		edit6.Format(_T("%d"), get_counter(COUNTER_1));
+		edit5.Format(_T("%u"), get_counter(COUNTER_COIN));
+		edit6.Format(_T("%u"), get_counter(COUNTER_1));
 		edit7 = get_hardware();
 		edit8 = get_software();
 		edit9 = get_production_date();
 		edit10 = get_uid();
 		edit11 = get_lib();
-		
+		if (connect_state() < 0)
+		{
+			edit12.Format(_T("没有连接上IO板!"));
+		}
+		else
+		{
+			edit12.Format(_T("IO板连接到COM%d，115200."), connect_state());
+		}
 		UpdateData(FALSE);
+		
 	}
 
 	CDialogEx::OnTimer(nIDEvent); // 调用基类版本以进行默认处理（如果需要的话）  
@@ -454,24 +737,24 @@ void CAboutDlg::OnBnClickedOk()
 void CMFCApplication1Dlg::OnBnClickedButton5()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	decrease_coins(1);
+	decrease_coin(1);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton6()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	decrease_coins(0xffff);
+	clear_coin();
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if(get_counter(COUNTER_COIN) + 100 < 0xffff)
+	if(get_counter(COUNTER_COIN) + 100 < 0xffffffff)
 		set_counter(COUNTER_COIN, get_counter(COUNTER_COIN) + 100);
 	else
-		set_counter(COUNTER_COIN, 0xfffe);
+		set_counter(COUNTER_COIN, 0xfffffffe);
 }
 
 
@@ -485,10 +768,10 @@ void CMFCApplication1Dlg::OnBnClickedButton2()
 void CMFCApplication1Dlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if(get_counter(COUNTER_1) + 100 < 0xffff)
+	if(get_counter(COUNTER_1) + 100 < 0xffffffff)
 		set_counter(COUNTER_1, get_counter(COUNTER_1) + 100);
 	else
-		set_counter(COUNTER_1, 0xfffe);
+		set_counter(COUNTER_1, 0xfffffffe);
 }
 
 

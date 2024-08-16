@@ -33,7 +33,7 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\fangli_io03.h">
+    <ClInclude Include="..\Release_lib\fangli_io03.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
