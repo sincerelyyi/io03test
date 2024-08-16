@@ -199,6 +199,7 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMFCApplication1Dlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMFCApplication1Dlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMFCApplication1Dlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON7, &CMFCApplication1Dlg::OnBnClickedButton7)
 END_MESSAGE_MAP()
 
 
@@ -709,9 +710,13 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			edit12.Format(_T("没有连接上IO板!"));
 		}
-		else
+		else if (connect_state()  > 0)
 		{
 			edit12.Format(_T("IO板连接到COM%d，115200."), connect_state());
+		}
+		else
+		{
+			edit12.Format(_T("正在连接..."));
 		}
 		UpdateData(FALSE);
 		
@@ -779,4 +784,14 @@ void CMFCApplication1Dlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	set_counter(COUNTER_1, 0);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton7()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	UpdateData(TRUE);
+    edit12.Format(_T("正在连接..."));
+	UpdateData(FALSE);
+	reconnect();
 }
