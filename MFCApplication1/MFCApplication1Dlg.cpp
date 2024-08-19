@@ -186,6 +186,9 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT10, edit10);
 	DDX_Text(pDX, IDC_EDIT11, edit11);
 	DDX_Text(pDX, IDC_EDIT12, edit12);
+	DDX_Text(pDX, IDC_EDIT13, edit13);
+	DDX_Text(pDX, IDC_EDIT14, edit14);
+
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -200,6 +203,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMFCApplication1Dlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMFCApplication1Dlg::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_BUTTON7, &CMFCApplication1Dlg::OnBnClickedButton7)
+	ON_BN_CLICKED(IDC_BUTTON8, &CMFCApplication1Dlg::OnBnClickedButton8)
+	ON_BN_CLICKED(IDC_BUTTON9, &CMFCApplication1Dlg::OnBnClickedButton9)
 END_MESSAGE_MAP()
 
 
@@ -242,14 +247,14 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 
 	// 设置定时器，假设定时器ID为1，时间间隔为100毫秒（1秒）  
 	SetTimer(1, 100, NULL);
-	progress1.SetRange(0, 255);
-	progress2.SetRange(0, 255);
-	progress3.SetRange(0, 255);
-	progress4.SetRange(0, 255);
-	progress5.SetRange(0, 255);
-	progress6.SetRange(0, 255);
-	progress7.SetRange(0, 255);
-	progress8.SetRange(0, 255);
+	progress1.SetRange(0, 0xfff0);
+	progress2.SetRange(0, 0xfff0);
+	progress3.SetRange(0, 0xfff0);
+	progress4.SetRange(0, 0xfff0);
+	progress5.SetRange(0, 0xfff0);
+	progress6.SetRange(0, 0xfff0);
+	progress7.SetRange(0, 0xfff0);
+	progress8.SetRange(0, 0xfff0);
 	slider1.SetRange(0, 100);
 	slider2.SetRange(0, 100);
 	slider3.SetRange(0, 100);
@@ -695,12 +700,12 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		set_outPin(21, out21);
 		set_outPin(22, out22);
 		set_outPin(23, out23);
-		edit1.Format(_T("%u"), get_coin());
+		edit1.Format(_T("%u"), get_coin(COIN1));
 		edit2.Format(_T("%d℃"), get_mcu_temperature());
-		edit3.Format(_T("%.1fV"), (float)get_mcu_voltage() / 10);
-		edit4.Format(_T("%.1fV"), (float)get_battery_voltage() / 10);
-		edit5.Format(_T("%u"), get_counter(COUNTER_COIN));
-		edit6.Format(_T("%u"), get_counter(COUNTER_1));
+		edit3.Format(_T("%umV"), get_mcu_voltage());
+		edit4.Format(_T("%umV"),get_battery_voltage());
+		edit5.Format(_T("%u"), get_counter(COUNTER_COIN1));
+		edit6.Format(_T("%u"), get_counter(COUNTER_COIN2));
 		edit7 = get_hardware();
 		edit8 = get_software();
 		edit9 = get_production_date();
@@ -718,6 +723,8 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			edit12.Format(_T("正在连接..."));
 		}
+		edit13.Format(_T("%u"), get_coin(COIN2));
+		edit14.Format(_T("0x%.4x"), get_error());
 		UpdateData(FALSE);
 		
 	}
@@ -742,48 +749,42 @@ void CAboutDlg::OnBnClickedOk()
 void CMFCApplication1Dlg::OnBnClickedButton5()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	decrease_coin(1);
+	decrease_coin(COIN1,1);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton6()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	clear_coin();
+	clear_coin(COIN1);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if(get_counter(COUNTER_COIN) + 100 < 0xffffffff)
-		set_counter(COUNTER_COIN, get_counter(COUNTER_COIN) + 100);
-	else
-		set_counter(COUNTER_COIN, 0xfffffffe);
+		add_counter(COUNTER_COIN1, 100);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	set_counter(COUNTER_COIN,0);
+	clean_counter(COUNTER_COIN1);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	if(get_counter(COUNTER_1) + 100 < 0xffffffff)
-		set_counter(COUNTER_1, get_counter(COUNTER_1) + 100);
-	else
-		set_counter(COUNTER_1, 0xfffffffe);
+	add_counter(COUNTER_COIN2, 100);
 }
 
 
 void CMFCApplication1Dlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	set_counter(COUNTER_1, 0);
+	clean_counter(COUNTER_COIN2);
 }
 
 
@@ -794,4 +795,18 @@ void CMFCApplication1Dlg::OnBnClickedButton7()
     edit12.Format(_T("正在连接..."));
 	UpdateData(FALSE);
 	reconnect();
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton8()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	decrease_coin(COIN2, 1);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton9()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	clear_coin(COIN2);
 }

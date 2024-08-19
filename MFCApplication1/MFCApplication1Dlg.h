@@ -155,6 +155,9 @@ public:
 	CString edit10;
 	CString edit11;
 	CString edit12;
+	CString edit13;
+	CString edit14;
+
 
 	afx_msg void OnBnClickedButton5();
 	afx_msg void OnBnClickedButton6();
@@ -163,4 +166,6 @@ public:
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton4();
 	afx_msg void OnBnClickedButton7();
+	afx_msg void OnBnClickedButton8();
+	afx_msg void OnBnClickedButton9();
 };
