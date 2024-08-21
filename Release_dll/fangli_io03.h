@@ -8,7 +8,7 @@
 #else
 #define LIBRARY_API extern	
 #endif  
-#define LIB_VERSION "lib_V1.5"
+#define LIB_VERSION "lib_V1.6"
 /*   版本记录
 *  lib_V1.0：初始版本
 *  lib_V1.1：修正程序启动时，不一定能读取到币数的问题
@@ -23,6 +23,8 @@
 	2，set_counter()改为add_counter()
 	3，增加clean_counter()
 	4,所有adc值用uint16_t数据存储
+lib_v1.6
+	1,加快读取串口的速度
 */
 
 // base input key_id
