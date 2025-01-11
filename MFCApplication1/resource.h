@@ -119,6 +119,9 @@
 #define IDC_CHECK66                     1111
 #define IDC_CHECK67                     1112
 #define IDC_CHECK68                     1113
+#define IDC_SLIDER41                    1113
+#define IDC_SLIDER42                    1114
+#define IDC_SLIDER43                    1115
 #define IDC_EDIT1                       1116
 #define IDC_EDIT2                       1117
 #define IDC_EDIT3                       1118
@@ -145,6 +148,39 @@
 #define IDC_BUTTON8                     1139
 #define IDC_BUTTON9                     1140
 #define IDC_EDIT14                      1141
+#define IDC_EDIT15                      1142
+#define IDC_EDIT16                      1143
+#define IDC_EDIT17                      1144
+#define IDC_SLIDER44                    1145
+#define IDC_EDIT18                      1146
+#define IDC_EDIT19                      1147
+#define IDC_EDIT20                      1148
+#define IDC_EDIT21                      1149
+#define IDC_RADIO1                      1150
+#define IDC_RADIO2                      1172
+#define IDC_RADIO3                      1173
+#define IDC_RADIO4                      1174
+#define IDC_RADIO5                      1175
+#define IDC_RADIO6                      1176
+#define IDC_EDIT22                      1179
+#define IDC_EDIT23                      1180
+#define IDC_EDIT24                      1181
+#define IDC_SLIDER45                    1182
+#define IDC_SLIDER46                    1183
+#define IDC_SLIDER47                    1184
+#define IDC_SLIDER48                    1185
+#define IDC_EDIT25                      1186
+#define IDC_EDIT26                      1187
+#define IDC_EDIT27                      1188
+#define IDC_EDIT28                      1189
+#define IDC_RADIO7                      1190
+#define IDC_RADIO8                      1191
+#define IDC_RADIO9                      1192
+#define IDC_RADIO10                     1193
+#define IDC_RADIO11                     1194
+#define IDC_RADIO12                     1195
+#define IDC_EDIT29                      1213
+#define IDC_EDIT30                      1214
 
 // Next default values for new objects
 // 
@@ -152,7 +188,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        132
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1126
+#define _APS_NEXT_CONTROL_VALUE         1151
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

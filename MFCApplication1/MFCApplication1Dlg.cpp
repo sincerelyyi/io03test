@@ -55,6 +55,7 @@ END_MESSAGE_MAP()
 
 CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MFCAPPLICATION1_DIALOG, pParent)
+	, radio1(FALSE)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -124,6 +125,14 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER34, slider34);
 	DDX_Control(pDX, IDC_SLIDER35, slider35);
 	DDX_Control(pDX, IDC_SLIDER36, slider36);
+	DDX_Control(pDX, IDC_SLIDER41, slider41);
+	DDX_Control(pDX, IDC_SLIDER42, slider42);
+	DDX_Control(pDX, IDC_SLIDER43, slider43);
+	DDX_Control(pDX, IDC_SLIDER44, slider44);
+	DDX_Control(pDX, IDC_SLIDER45, slider45);
+	DDX_Control(pDX, IDC_SLIDER46, slider46);
+	DDX_Control(pDX, IDC_SLIDER47, slider47);
+	DDX_Control(pDX, IDC_SLIDER48, slider48);
 	DDX_Check(pDX, IDC_CHECK19, out0);
 	DDX_Check(pDX, IDC_CHECK20, out1);
 	DDX_Check(pDX, IDC_CHECK21, out2);
@@ -188,6 +197,26 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT12, edit12);
 	DDX_Text(pDX, IDC_EDIT13, edit13);
 	DDX_Text(pDX, IDC_EDIT14, edit14);
+	DDX_Text(pDX, IDC_EDIT15, edit15);
+	DDX_Text(pDX, IDC_EDIT16, edit16);
+	DDX_Text(pDX, IDC_EDIT17, edit17);
+	DDX_Text(pDX, IDC_EDIT18, edit18);
+	DDX_Text(pDX, IDC_EDIT19, edit19);
+	DDX_Text(pDX, IDC_EDIT20, edit20);
+	DDX_Text(pDX, IDC_EDIT21, edit21);
+	DDX_Text(pDX, IDC_EDIT22, edit22);
+	DDX_Text(pDX, IDC_EDIT23, edit23);
+	DDX_Text(pDX, IDC_EDIT24, edit24);
+	DDX_Text(pDX, IDC_EDIT25, edit25);
+	DDX_Text(pDX, IDC_EDIT26, edit26);
+	DDX_Text(pDX, IDC_EDIT27, edit27);
+	DDX_Text(pDX, IDC_EDIT28, edit28);
+	DDX_Text(pDX, IDC_EDIT29, edit29);
+	DDX_Text(pDX, IDC_EDIT30, edit30);
+
+	DDX_Radio(pDX, IDC_RADIO1, radio1);
+
+	DDX_Radio(pDX, IDC_RADIO7, radio7);
 
 }
 
@@ -205,6 +234,26 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON7, &CMFCApplication1Dlg::OnBnClickedButton7)
 	ON_BN_CLICKED(IDC_BUTTON8, &CMFCApplication1Dlg::OnBnClickedButton8)
 	ON_BN_CLICKED(IDC_BUTTON9, &CMFCApplication1Dlg::OnBnClickedButton9)
+	ON_BN_CLICKED(IDC_RADIO1, &CMFCApplication1Dlg::OnBnClickedRadio1)
+	ON_BN_CLICKED(IDC_RADIO2, &CMFCApplication1Dlg::OnBnClickedRadio2)
+	ON_BN_CLICKED(IDC_RADIO3, &CMFCApplication1Dlg::OnBnClickedRadio3)
+	ON_BN_CLICKED(IDC_RADIO4, &CMFCApplication1Dlg::OnBnClickedRadio4)
+	ON_BN_CLICKED(IDC_RADIO5, &CMFCApplication1Dlg::OnBnClickedRadio5)
+	ON_BN_CLICKED(IDC_RADIO6, &CMFCApplication1Dlg::OnBnClickedRadio6)
+	ON_BN_CLICKED(IDC_RADIO7, &CMFCApplication1Dlg::OnBnClickedRadio7)
+	ON_BN_CLICKED(IDC_RADIO8, &CMFCApplication1Dlg::OnBnClickedRadio8)
+	ON_BN_CLICKED(IDC_RADIO9, &CMFCApplication1Dlg::OnBnClickedRadio9)
+	ON_BN_CLICKED(IDC_RADIO10, &CMFCApplication1Dlg::OnBnClickedRadio10)
+	ON_BN_CLICKED(IDC_RADIO11, &CMFCApplication1Dlg::OnBnClickedRadio11)
+	ON_BN_CLICKED(IDC_RADIO12, &CMFCApplication1Dlg::OnBnClickedRadio12)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER41, &CMFCApplication1Dlg::OnNMCustomdrawSlider41)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER42, &CMFCApplication1Dlg::OnNMCustomdrawSlider42)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER43, &CMFCApplication1Dlg::OnNMCustomdrawSlider43)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER44, &CMFCApplication1Dlg::OnNMCustomdrawSlider44)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER45, &CMFCApplication1Dlg::OnNMCustomdrawSlider45)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER46, &CMFCApplication1Dlg::OnNMCustomdrawSlider46)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER47, &CMFCApplication1Dlg::OnNMCustomdrawSlider47)
+	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER48, &CMFCApplication1Dlg::OnNMCustomdrawSlider48)
 END_MESSAGE_MAP()
 
 
@@ -291,6 +340,26 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	slider34.SetRange(0, 255);
 	slider35.SetRange(0, 255);
 	slider36.SetRange(0, 255);
+	slider41.SetRange(0, 100);
+	slider42.SetRange(0, 100);
+	slider43.SetRange(-100, 100);
+	slider43.SetPos(1);
+	slider43.SetPos(0);
+	slider44.SetRange(0, 100);
+	slider45.SetRange(0, 100);
+	slider46.SetRange(0, 100);
+	slider47.SetRange(-100, 100);
+	slider47.SetPos(1);
+	slider47.SetPos(0);
+	slider48.SetRange(0, 100);
+
+	UpdateData(TRUE);
+	radio1 = 1;
+	radio7 = 1;
+	UpdateData(FALSE);
+
+
+
 	if (connect_state() < 1)
 	{
 		MessageBox(TEXT("没有连接上IO板！"), TEXT("Error"), MB_OK | MB_ICONINFORMATION);
@@ -725,6 +794,23 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		}
 		edit13.Format(_T("%u"), get_coin(COIN2));
 		edit14.Format(_T("0x%.4x"), get_error());
+		edit15.Format(_T("%d"), get_steering_state(0));
+		edit16.Format(_T("0x%.4x"), get_steering_left_limit(0));
+		edit17.Format(_T("0x%.4x"), get_steering_right_limit(0));
+		edit18.Format(_T("%u"), slider41.GetPos());
+		edit19.Format(_T("%u"), slider42.GetPos());
+		edit20.Format(_T("%d"), slider43.GetPos());
+		edit21.Format(_T("%u"), slider44.GetPos());
+		edit22.Format(_T("%d"), get_steering_state(1));
+		edit23.Format(_T("0x%.4x"), get_steering_left_limit(1));
+		edit24.Format(_T("0x%.4x"), get_steering_right_limit(1));
+		edit25.Format(_T("%u"), slider45.GetPos());
+		edit26.Format(_T("%u"), slider46.GetPos());
+		edit27.Format(_T("%d"), slider47.GetPos());
+		edit28.Format(_T("%u"), slider48.GetPos());
+		edit29.Format(_T("%d"), get_steering_position(0));
+		edit30.Format(_T("%d"), get_steering_position(1));
+
 		UpdateData(FALSE);
 		
 	}
@@ -809,4 +895,205 @@ void CMFCApplication1Dlg::OnBnClickedButton9()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	clear_coin(COIN2);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_auto_test(0);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_stop(0);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_left(0, slider41.GetPos(), slider42.GetPos());
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio4()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_right(0, slider41.GetPos(), slider42.GetPos());
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_position(0, slider41.GetPos(), slider42.GetPos(),slider43.GetPos());
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_shake(0, slider41.GetPos(), slider42.GetPos(), slider43.GetPos(),slider44.GetPos());
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio7()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_auto_test(1);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio8()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_stop(1);
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio9()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_left(1, slider45.GetPos(), slider46.GetPos());
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio10()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_right(1, slider45.GetPos(), slider46.GetPos());
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio11()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_position(1, slider45.GetPos(), slider46.GetPos(), slider47.GetPos());
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedRadio12()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	steering_shake(1, slider45.GetPos(), slider46.GetPos(), slider47.GetPos(), slider48.GetPos());
+}
+
+void  CMFCApplication1Dlg::steering0_command(void)
+{
+	switch (radio1)
+	{
+	case 0:
+			steering_auto_test(0);
+			break;
+	case 1:
+			steering_stop(0);
+			break;
+	case 2:
+			steering_left(0, slider41.GetPos(), slider42.GetPos());
+			break;
+	case 3:
+			steering_right(0, slider41.GetPos(), slider42.GetPos());
+			break;
+	case 4:
+			steering_position(0, slider41.GetPos(), slider42.GetPos(), slider43.GetPos());
+			break;
+	case 5:
+			steering_shake(0, slider41.GetPos(), slider42.GetPos(), slider43.GetPos(), slider44.GetPos());
+			break;
+	default:
+		break;
+	}
+}
+void  CMFCApplication1Dlg::steering1_command(void)
+{
+	switch (radio7)
+	{
+	case 0:
+		steering_auto_test(1);
+		break;
+	case 1:
+		steering_stop(1);
+		break;
+	case 2:
+		steering_left(1, slider45.GetPos(), slider46.GetPos());
+		break;
+	case 3:
+		steering_right(1, slider45.GetPos(), slider46.GetPos());
+		break;
+	case 4:
+		steering_position(1, slider45.GetPos(), slider46.GetPos(), slider47.GetPos());
+		break;
+	case 5:
+		steering_shake(1, slider45.GetPos(), slider46.GetPos(), slider47.GetPos(), slider48.GetPos());
+		break;
+	default:
+		break;
+	}
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider41(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering0_command();
+	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider42(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering0_command();
+	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider43(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering0_command();
+	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider44(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering0_command();
+	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider45(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering1_command();
+	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider46(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering1_command();
+	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider47(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering1_command();
+	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnNMCustomdrawSlider48(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	steering1_command();
+	*pResult = 0;
 }

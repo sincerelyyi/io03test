@@ -95,6 +95,14 @@ public:
 	CSliderCtrl slider34;
 	CSliderCtrl slider35;
 	CSliderCtrl slider36;
+	CSliderCtrl slider41;
+	CSliderCtrl slider42;
+	CSliderCtrl slider43;
+	CSliderCtrl slider44;
+	CSliderCtrl slider45;
+	CSliderCtrl slider46;
+	CSliderCtrl slider47;
+	CSliderCtrl slider48;
 	BOOL out0;
 	BOOL out1;
 	BOOL out2;
@@ -143,6 +151,8 @@ public:
 	BOOL in21;
 	BOOL in22;
 	BOOL in23;
+	BOOL radio1;
+	BOOL radio7;
 	CString edit1;
 	CString edit2;
 	CString edit3;
@@ -157,6 +167,22 @@ public:
 	CString edit12;
 	CString edit13;
 	CString edit14;
+	CString edit15;
+	CString edit16;
+	CString edit17;
+	CString edit18;
+	CString edit19;
+	CString edit20;
+	CString edit21;
+	CString edit22;
+	CString edit23;
+	CString edit24;
+	CString edit25;
+	CString edit26;
+	CString edit27;
+	CString edit28;
+	CString edit29;
+	CString edit30;
 
 
 	afx_msg void OnBnClickedButton5();
@@ -168,4 +194,27 @@ public:
 	afx_msg void OnBnClickedButton7();
 	afx_msg void OnBnClickedButton8();
 	afx_msg void OnBnClickedButton9();
+	afx_msg void OnBnClickedRadio1();
+	afx_msg void OnBnClickedRadio2();
+	afx_msg void OnBnClickedRadio3();
+	afx_msg void OnBnClickedRadio4();
+	afx_msg void OnBnClickedRadio5();
+	afx_msg void OnBnClickedRadio6();
+	afx_msg void OnBnClickedRadio7();
+	afx_msg void OnBnClickedRadio8();
+	afx_msg void OnBnClickedRadio9();
+	afx_msg void OnBnClickedRadio10();
+	afx_msg void OnBnClickedRadio11();
+	afx_msg void OnBnClickedRadio12();
+	afx_msg void OnNMCustomdrawSlider41(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdrawSlider42(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdrawSlider43(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdrawSlider44(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdrawSlider45(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdrawSlider46(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdrawSlider47(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnNMCustomdrawSlider48(NMHDR* pNMHDR, LRESULT* pResult);
+
+	void  steering0_command(void);
+	void  steering1_command(void);
 };

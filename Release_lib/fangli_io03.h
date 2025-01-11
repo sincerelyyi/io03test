@@ -8,7 +8,7 @@
 #else
 #define LIBRARY_API extern	
 #endif  
-#define LIB_VERSION "lib_V1.6"
+#define LIB_VERSION "lib_V1.7"
 /*   版本记录
 *  lib_V1.0：初始版本
 *  lib_V1.1：修正程序启动时，不一定能读取到币数的问题
@@ -25,6 +25,8 @@
 	4,所有adc值用uint16_t数据存储
 lib_v1.6
 	1,加快读取串口的速度
+lib_v1.7
+	1,增加方向盘功能
 */
 
 // base input key_id
@@ -294,8 +296,112 @@ LIBRARY_API void set_pwm_breathe(uint8_t pwm_id, uint8_t interval, uint8_t brigh
 * level：引脚电平 false：输出电平为高，对应的灯不亮。false：输出电平为低，对应的灯亮
 */
 LIBRARY_API void set_outPin(uint8_t out_id, bool level);
+
 /*
 * 停止监控io板串口的线程，使用动态库时，应用结束前使用此函数。不如线程可能不能退出
 */
 LIBRARY_API bool stop_monitoring();
+
+/*
+* 关闭方向盘马达驱动
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+*/
+LIBRARY_API void steering_stop(uint8_t steernum);
+
+/*
+* 方向盘自动测定最左边界和最右边界
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+*/
+LIBRARY_API void steering_auto_test(uint8_t steernum);
+
+/*
+* 方向盘一直向左转
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* uint8_t strength：方向盘的力度，主要体现在用手抓住方向盘，阻止它运动时所感受到的力度。取值范围为0到100.大于100的值都会当作是100.
+* uint8_t speed：方向盘移动的速度。主要体现为方向盘没有阻碍时移动的速度。取值范围为0到100。大于100的值都会当作100。
+*/
+LIBRARY_API void steering_left(uint8_t steernum,uint8_t strength, uint8_t speed);
+
+/*
+* 方向盘一直向右转
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* uint8_t strength：方向盘的力度，主要体现在用手抓住方向盘，阻止它运动时所感受到的力度。取值范围为0到100.大于100的值都会当作是100.
+* uint8_t speed：方向盘移动的速度。主要体现为方向盘没有阻碍时移动的速度。取值范围为0到100。大于100的值都会当作100。
+*/
+LIBRARY_API void steering_right(uint8_t steernum,uint8_t strength, uint8_t speed);
+
+/*
+* 方向盘转动到指定位置
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* uint8_t strength：方向盘的力度，主要体现在用手抓住方向盘，阻止它运动时所感受到的力度。取值范围为0到100.大于100的值都会当作是100.
+* uint8_t speed：方向盘移动的速度。主要体现为方向盘没有阻碍时移动的速度。取值范围为0到100。大于100的值都会当作100。
+* int8_t pos: 相对位置值,-100表示最左边,+100表示最右边。小于-100的都会当作-100，大于+100都会当作+100。0表示居中位置。
+*/
+LIBRARY_API void steering_position(uint8_t steernum,uint8_t strength,uint8_t speed,int8_t pos);
+
+/*
+* 方向盘以指定位置为中心左右摆动
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* uint8_t strength：方向盘的力度，主要体现在用手抓住方向盘，阻止它运动时所感受到的力度。取值范围为0到100.大于100的值都会当作是100.
+* uint8_t speed：方向盘移动的速度。主要体现为方向盘没有阻碍时移动的速度。取值范围为0到100。大于100的值都会当作100。
+* int8_t pos: 相对位置值,-100表示最左边,+100表示最右边。小于-100的都会当作-100，大于+100都会当作+100。0表示居中位置。
+* uint8_t amp：方向盘左右摆动的最大幅度，0-100。
+*/
+LIBRARY_API void steering_shake(uint8_t steernum,uint8_t strength,uint8_t speed,int8_t pos,uint8_t amp);
+
+/*
+* 获取方向盘的运行状态包括是否错误和运行何种指令
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* 输出：如下定义
+#define     STEERING_ERROR      -1  ///< 方向盘错误(Steering wheel error)
+#define     STEERING_AUTO_TEST  0   ///< 方向盘正运行自动测试指令(The steering wheel is currently executing an automatic test command)
+#define     STEERING_STOP       1   ///< 方向盘正运行停止指令(The steering wheel is currently executing a stop command)
+#define     STEERING_LEFT       2   ///< 方向盘正运行左转指令(The steering wheel is currently executing a left turn command.)
+#define     STEERING_RIGHT      3   ///< 方向盘正运行右转指令(The steering wheel is currently executing a right turn command.)
+#define     STEERING_POSITION   4   ///< 方向盘正运行指定位置指令(The steering wheel is currently executing a command to move to a specified position)
+#define     STEERING_SHAKE      5   ///<方向盘正运行振动指令(The steering wheel is currently executing a vibration command)
+*/
+LIBRARY_API int8_t get_steering_state(uint8_t steernum);
+
+/*
+* 获取方向盘最左边边界的ADC原始值
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* 输出：返回左边界的ADC值0~4095
+*/
+LIBRARY_API uint16_t get_steering_left_limit(uint8_t steernum);
+
+/*
+* 获取方向盘右边界的ADC原始值
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* 输出：返回右边界的ADC值0~4095
+*/
+LIBRARY_API uint16_t get_steering_right_limit(uint8_t steernum);
+
+/*
+* 监测方向盘的实时位置
+* uint8_t sternum：方向盘ID
+* 0：方向盘1
+* 1：方向盘2
+* 输出：返回方向盘的相对位置。-100~-1为左边位置，0为中间位置，1～100为右边位置。
+*/
+LIBRARY_API int8_t get_steering_position(uint8_t steernum);
+
 
