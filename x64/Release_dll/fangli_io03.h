@@ -8,7 +8,7 @@
 #else
 #define LIBRARY_API extern	
 #endif  
-#define LIB_VERSION "lib_V1.7"
+#define LIB_VERSION "lib_V1.8"
 /*   版本记录
 *  lib_V1.0：初始版本
 *  lib_V1.1：修正程序启动时，不一定能读取到币数的问题
@@ -27,6 +27,8 @@ lib_v1.6
 	1,加快读取串口的速度
 lib_v1.7
 	1,增加方向盘功能
+lib_v1.8
+	1,查看windows文档，已读写字节数参数为NULL，防止错误
 */
 
 // base input key_id
