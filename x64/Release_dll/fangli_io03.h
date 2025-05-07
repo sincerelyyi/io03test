@@ -28,10 +28,10 @@ lib_v1.6
 lib_v1.7
 	1,增加方向盘功能
 lib_v1.8
-	1,查看windows文档，已读写字节数参数为NULL，防止错误
+	1,明确支持windows7，windows10，Windows11.
 	2,串口更改为同步模式
 	3，利用注册表枚举串口
-	4,优化发送和接受
+	4,优化发送和接受，使得整个软件快捷和轻量化
 */
 
 // base input key_id
