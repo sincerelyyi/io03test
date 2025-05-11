@@ -8,6 +8,7 @@
 #include "MFCApplication1Dlg.h"
 #include "afxdialogex.h"
 #include "fangli_io03.h"
+#include "CAN.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -254,6 +255,7 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER46, &CMFCApplication1Dlg::OnNMCustomdrawSlider46)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER47, &CMFCApplication1Dlg::OnNMCustomdrawSlider47)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER48, &CMFCApplication1Dlg::OnNMCustomdrawSlider48)
+	ON_BN_CLICKED(IDC_BUTTON10, &CMFCApplication1Dlg::OnBnClickedButton10)
 END_MESSAGE_MAP()
 
 
@@ -1096,4 +1098,19 @@ void CMFCApplication1Dlg::OnNMCustomdrawSlider48(NMHDR* pNMHDR, LRESULT* pResult
 	// TODO: 在此添加控件通知处理程序代码
 	steering1_command();
 	*pResult = 0;
+}
+
+void CMFCApplication1Dlg::OnBnClickedButton10()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CAN* mycan = NULL;
+	if (!mycan)
+	{
+		mycan = new CAN(this);
+		mycan->Create(IDD_DIALOG_CAN, GetDesktopWindow());
+		mycan->ShowWindow(SW_SHOW);
+		mycan->father = this;
+	}
+	ShowWindow(SW_HIDE);        // 隐藏窗口
 }

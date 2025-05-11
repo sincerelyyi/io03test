@@ -32,6 +32,8 @@ lib_v1.8
 	2,串口更改为同步模式
 	3，利用注册表枚举串口
 	4,优化发送和接受，使得整个软件快捷和轻量化
+lib_v1.9
+	1,支持CAN转发功能
 */
 
 // base input key_id
@@ -122,6 +124,31 @@ lib_v1.8
 #define CODE_NOSIGN         0x0400      ///< 固件没有签名或错误签名 
 #define UID_NOSIGN          0x0800      ///< UID没有签名或错误签名 
 #define NO_RDP              0x1000      ///< mcu不在读保护状态下 
+//方向盘动作定义
+#define     STEERING_ERROR      -1  ///< 方向盘错误(Steering wheel error)
+#define     STEERING_AUTO_TEST  0   ///< 方向盘正运行自动测试指令(The steering wheel is currently executing an automatic test command)
+#define     STEERING_STOP       1   ///< 方向盘正运行停止指令(The steering wheel is currently executing a stop command)
+#define     STEERING_LEFT       2   ///< 方向盘正运行左转指令(The steering wheel is currently executing a left turn command.)
+#define     STEERING_RIGHT      3   ///< 方向盘正运行右转指令(The steering wheel is currently executing a right turn command.)
+#define     STEERING_POSITION   4   ///< 方向盘正运行指定位置指令(The steering wheel is currently executing a command to move to a specified position)
+#define     STEERING_SHAKE      5   ///<方向盘正运行振动指令(The steering wheel is currently executing a vibration command)
+
+//CAN 初始化值结构体
+typedef struct _can_init
+{
+	uint32_t baud;//波特率
+	uint8_t bs1;// BS1
+	uint8_t bs2;//BS2
+	uint8_t sjw;//SJW
+}CAN_initType;
+
+//CAN 数据结构体
+typedef struct _can_data
+{
+	uint32_t id;//ID
+	uint8_t len;// 数据长度
+	uint8_t data[8];//数据
+}CAN_dataType;
 
 /*
 * 连接io板
@@ -408,5 +435,40 @@ LIBRARY_API uint16_t get_steering_right_limit(uint8_t steernum);
 * 输出：返回方向盘的相对位置。-100~-1为左边位置，0为中间位置，1～100为右边位置。
 */
 LIBRARY_API int8_t get_steering_position(uint8_t steernum);
+
+/*
+* 设置CAN的时间片段的初始化值
+* baud： 波特率,初始值为500K，波特率=42MHz/((1+BS1+BS2)*n),n是正整数，
+			如果要设置的波特率的值不在公式中，设置值和实际值将会有偏差。
+			波特率必须小于1M（1000000）
+*		
+* BS1： 位段1的值，初始值为8 
+* BS2： 位段2的值，初始值为3
+* SJW： 再同步跳转宽度的值，初始值为1，SJW<= BS1,SJW<= BS2
+* 如果有参数不满足上面要求，该函数不执行，并返回0
+* 输出：成功执行，返回实际波特率。失败返回0
+*/
+LIBRARY_API uint32_t set_can_init(uint32_t baud,uint8_t BS1,uint8_t BS2,uint8_t SJW);
+
+/*
+* 获取CAN的时间片段的初始化值
+*init： 输出初始化值的CAN_initType 指针
+*/
+LIBRARY_API void get_can_init(CAN_initType* init);
+
+/*
+* 发送数据到CAN总线
+* id： 消息id，这里使用标准ID（CAN 2.0A）（11位），
+* len： 要发送的数据长度，取值范围0-8
+* data： 要发送的数据的指针
+*/
+LIBRARY_API void can_send(uint32_t id, uint8_t len, uint8_t* data);
+
+/*
+* 获取CAN数据，CAN数据存储在CAN_dataType类型的FIFO中，每次调用此函数读取一个FIFO数据。
+*data： 输出数据的CAN_dataType 指针
+* 输出：成功读取到数据，返回1；FIFO空，没有读取到数据返回0
+*/
+LIBRARY_API int can_receive(CAN_dataType* data);
 
 

@@ -7,6 +7,7 @@
 #define IDS_ABOUTBOX                    101
 #define IDD_MFCAPPLICATION1_DIALOG      102
 #define IDR_MAINFRAME                   128
+#define IDD_DIALOG_CAN                  132
 #define IDC_PROGRESS1                   1000
 #define IDC_PROGRESS2                   1001
 #define IDC_PROGRESS3                   1002
@@ -157,6 +158,15 @@
 #define IDC_EDIT20                      1148
 #define IDC_EDIT21                      1149
 #define IDC_RADIO1                      1150
+#define IDC_BUTTON10                    1151
+#define IDC_BUTTON11                    1152
+#define IDC_BAUD                        1153
+#define IDC_BS1                         1154
+#define IDC_BS2                         1155
+#define IDC_SJW                         1156
+#define IDC_ID                          1157
+#define IDC_LEN                         1158
+#define IDC_DATA                        1159
 #define IDC_RADIO2                      1172
 #define IDC_RADIO3                      1173
 #define IDC_RADIO4                      1174
@@ -186,9 +196,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        132
+#define _APS_NEXT_RESOURCE_VALUE        134
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1151
+#define _APS_NEXT_CONTROL_VALUE         1160
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -36,6 +36,9 @@
     <ClInclude Include="..\Release_lib\fangli_io03.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CAN.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -45,6 +48,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CAN.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
