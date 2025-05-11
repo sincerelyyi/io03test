@@ -8,7 +8,7 @@
 #else
 #define LIBRARY_API extern	
 #endif  
-#define LIB_VERSION "lib_V1.8"
+#define LIB_VERSION "lib_V1.9"
 /*   版本记录
 *  lib_V1.0：初始版本
 *  lib_V1.1：修正程序启动时，不一定能读取到币数的问题
