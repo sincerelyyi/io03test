@@ -27,10 +27,11 @@ CAN::CAN(CWnd* pParent /*=nullptr*/)
     , bits(_T("8"))
     , parity(_T("none"))
     , stop(_T("1"))
-    , send_hex(FALSE)
-    , receive_hex(FALSE)
+    , send_hex(TRUE)
+    , receive_hex(TRUE)
     , send_com(_T("a1 a2 a3 a4 01 02 03 04"))
     , receive_com(_T(""))
+    , check_newline(TRUE)
 {
 
 }
@@ -68,6 +69,7 @@ void CAN::DoDataExchange(CDataExchange* pDX)
     DDX_Text(pDX, IDC_SEND_COM, send_com);
     DDX_Text(pDX, IDC_RECEIVE_COM, receive_com);
     DDX_Control(pDX, IDC_RECEIVE_COM, idc_receive_com);
+    DDX_Check(pDX, IDC_CHECK_NEWLINE, check_newline);
 }
 
 BOOL CAN::OnInitDialog()
@@ -93,10 +95,10 @@ END_MESSAGE_MAP()
 void CAN::OnTimer(UINT_PTR nIDEvent)
 {
     // TODO: 在此添加消息处理程序代码和/或调用默认值
+    static uint32_t no_data_count = 100;
     if (nIDEvent == 1) // 替换YOUR_TIMER_ID为你的定时器ID
     {
         UpdateData(TRUE);
-
         // can接收数据
         CAN_dataType data;
         CString temp, message;
@@ -116,6 +118,7 @@ void CAN::OnTimer(UINT_PTR nIDEvent)
             }
             message += _T("\r\n");
             receive.Insert(0, message);
+            UpdateData(FALSE);
         }
         // com转发接收数据
         uint8_t com_buff[4096] = { 0 };
@@ -123,18 +126,18 @@ void CAN::OnTimer(UINT_PTR nIDEvent)
         com_len = uartForward_receive(4096, com_buff);
         if (receive_com.GetLength() > 10 * 1024)
         {
-            receive_com.Truncate(10 * 1024);
+            receive_com.Delete(0,receive_com.GetLength() - 10 * 1024);
         }
         if (com_len)
         {
+            no_data_count = 0;
             if (receive_hex)
             {
-                for (uint8_t i = 0; i < com_len; i++)
+                for (uint16_t i = 0; i < com_len; i++)
                 {
                     temp.Format(_T("%.2X "), com_buff[i]);
                     receive_com += temp;
                 }
-                receive_com += _T("\r\n");
             }
             else
             {
@@ -142,12 +145,21 @@ void CAN::OnTimer(UINT_PTR nIDEvent)
                 size_t done_len;
                 mbstowcs_s(&done_len,wideStr,(char *)com_buff, com_len);
                 receive_com += wideStr;
-                receive_com += _T("\r\n");
             }
-
             UpdateData(FALSE);
-            idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
-            //idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+            //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
+            idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+        }
+        else
+        {
+            no_data_count++;
+            if (check_newline && (no_data_count == 3))
+            {
+                receive_com += _T("\r\n");
+                UpdateData(FALSE);
+                //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
+                idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+            }
         }
     }
     CDialogEx::OnTimer(nIDEvent);

@@ -205,6 +205,8 @@
 #define IDC_RADIO6                      1176
 #define IDC_CAN_RECEIVE_CLEAR           1176
 #define BUTTON_INIT                     1177
+#define IDC_CHECK_RECEIVE_HEX2          1177
+#define IDC_CHECK_NEWLINE               1177
 #define BUTTON_ENABLE                   1178
 #define IDC_EDIT22                      1179
 #define EDIT_CONNECT_STATUS             1179

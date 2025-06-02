@@ -50,5 +50,6 @@ public:
     afx_msg void OnBnClickedComSend();
     afx_msg void OnBnClickedComReceiveClear();
     CEdit idc_receive_com;
+    BOOL check_newline;
 };
 
