@@ -294,6 +294,7 @@
   <ItemGroup>
     <ClInclude Include="..\Release_lib\fangli_io03.h" />
     <ClInclude Include="CAN.h" />
+    <ClInclude Include="extlight.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MFCApplication1.h" />
     <ClInclude Include="MFCApplication1Dlg.h" />
@@ -303,6 +304,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAN.cpp" />
+    <ClCompile Include="extlight.cpp" />
     <ClCompile Include="MFCApplication1.cpp" />
     <ClCompile Include="MFCApplication1Dlg.cpp" />
     <ClCompile Include="pch.cpp">

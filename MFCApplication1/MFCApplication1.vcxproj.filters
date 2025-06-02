@@ -39,6 +39,9 @@
     <ClInclude Include="CAN.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="extlight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFCApplication1.cpp">
@@ -51,6 +54,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CAN.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="extlight.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

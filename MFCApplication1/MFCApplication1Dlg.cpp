@@ -9,6 +9,7 @@
 #include "afxdialogex.h"
 #include "fangli_io03.h"
 #include "CAN.h"
+#include "extlight.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -256,6 +257,7 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER47, &CMFCApplication1Dlg::OnNMCustomdrawSlider47)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER48, &CMFCApplication1Dlg::OnNMCustomdrawSlider48)
 	ON_BN_CLICKED(IDC_BUTTON10, &CMFCApplication1Dlg::OnBnClickedButton10)
+	ON_BN_CLICKED(BUTTON_EXTLIGHT_OPEN, &CMFCApplication1Dlg::OnBnClickedExtlightOpen)
 END_MESSAGE_MAP()
 
 
@@ -1111,6 +1113,20 @@ void CMFCApplication1Dlg::OnBnClickedButton10()
 		mycan->Create(IDD_DIALOG_CAN, GetDesktopWindow());
 		mycan->ShowWindow(SW_SHOW);
 		mycan->father = this;
+	}
+	ShowWindow(SW_HIDE);        // 隐藏窗口
+}
+
+void CMFCApplication1Dlg::OnBnClickedExtlightOpen()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	extlight* myextlight = NULL;
+	if (!myextlight)
+	{
+		myextlight = new extlight(this);
+		myextlight->Create(IDD_EXTLIGHT, GetDesktopWindow());
+		myextlight->ShowWindow(SW_SHOW);
+		myextlight->father = this;
 	}
 	ShowWindow(SW_HIDE);        // 隐藏窗口
 }

@@ -218,4 +218,5 @@ public:
 	void  steering0_command(void);
 	void  steering1_command(void);
 	afx_msg void OnBnClickedButton10();
+	afx_msg void OnBnClickedExtlightOpen();
 };
