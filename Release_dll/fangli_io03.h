@@ -37,6 +37,7 @@ lib_v1.9
 lib_v2.0
 	1，增加串口转发到uart5的功能。
 	2，增加扩展灯板的控制功能
+	3，将大多数void function()函数改为int functon()
 */
 
 // base input key_id
@@ -195,14 +196,16 @@ LIBRARY_API uint32_t get_counter(uint8_t counter_id);
 * 设定io板码表还没有跳动完的数字
 * counter_id：0-1，其中0，是投币对应的码表
 * counter_num: 0 - 0xfffffff
+* 成功执行，返回1。失败返回0
 */
-LIBRARY_API void add_counter(uint8_t counter_id, uint32_t counter_num);
+LIBRARY_API int add_counter(uint8_t counter_id, uint32_t counter_num);
 
 /*
 * 清除io板码表还没有跳动完的数字
 * counter_id：0-1，其中0，是投币对应的码表
+* 成功执行，返回1。失败返回0
 */
-LIBRARY_API void clean_counter(uint8_t counter_id);
+LIBRARY_API int clean_counter(uint8_t counter_id);
 
 
 /*
@@ -330,7 +333,7 @@ LIBRARY_API bool stop_monitoring();
 * 0：方向盘1
 * 1：方向盘2
 */
-LIBRARY_API void steering_stop(uint8_t steernum);
+LIBRARY_API int steering_stop(uint8_t steernum);
 
 /*
 * 方向盘自动测定最左边界和最右边界
@@ -338,7 +341,7 @@ LIBRARY_API void steering_stop(uint8_t steernum);
 * 0：方向盘1
 * 1：方向盘2
 */
-LIBRARY_API void steering_auto_test(uint8_t steernum);
+LIBRARY_API int steering_auto_test(uint8_t steernum);
 
 /*
 * 方向盘一直向左转
@@ -348,7 +351,7 @@ LIBRARY_API void steering_auto_test(uint8_t steernum);
 * uint8_t strength：方向盘的力度，主要体现在用手抓住方向盘，阻止它运动时所感受到的力度。取值范围为0到100.大于100的值都会当作是100.
 * uint8_t speed：方向盘移动的速度。主要体现为方向盘没有阻碍时移动的速度。取值范围为0到100。大于100的值都会当作100。
 */
-LIBRARY_API void steering_left(uint8_t steernum,uint8_t strength, uint8_t speed);
+LIBRARY_API int steering_left(uint8_t steernum,uint8_t strength, uint8_t speed);
 
 /*
 * 方向盘一直向右转
@@ -358,7 +361,7 @@ LIBRARY_API void steering_left(uint8_t steernum,uint8_t strength, uint8_t speed)
 * uint8_t strength：方向盘的力度，主要体现在用手抓住方向盘，阻止它运动时所感受到的力度。取值范围为0到100.大于100的值都会当作是100.
 * uint8_t speed：方向盘移动的速度。主要体现为方向盘没有阻碍时移动的速度。取值范围为0到100。大于100的值都会当作100。
 */
-LIBRARY_API void steering_right(uint8_t steernum,uint8_t strength, uint8_t speed);
+LIBRARY_API int steering_right(uint8_t steernum,uint8_t strength, uint8_t speed);
 
 /*
 * 方向盘转动到指定位置
@@ -369,7 +372,7 @@ LIBRARY_API void steering_right(uint8_t steernum,uint8_t strength, uint8_t speed
 * uint8_t speed：方向盘移动的速度。主要体现为方向盘没有阻碍时移动的速度。取值范围为0到100。大于100的值都会当作100。
 * int8_t pos: 相对位置值,-100表示最左边,+100表示最右边。小于-100的都会当作-100，大于+100都会当作+100。0表示居中位置。
 */
-LIBRARY_API void steering_position(uint8_t steernum,uint8_t strength,uint8_t speed,int8_t pos);
+LIBRARY_API int steering_position(uint8_t steernum,uint8_t strength,uint8_t speed,int8_t pos);
 
 /*
 * 方向盘以指定位置为中心左右摆动
@@ -381,7 +384,7 @@ LIBRARY_API void steering_position(uint8_t steernum,uint8_t strength,uint8_t spe
 * int8_t pos: 相对位置值,-100表示最左边,+100表示最右边。小于-100的都会当作-100，大于+100都会当作+100。0表示居中位置。
 * uint8_t amp：方向盘左右摆动的最大幅度，0-100。
 */
-LIBRARY_API void steering_shake(uint8_t steernum,uint8_t strength,uint8_t speed,int8_t pos,uint8_t amp);
+LIBRARY_API int steering_shake(uint8_t steernum,uint8_t strength,uint8_t speed,int8_t pos,uint8_t amp);
 
 /*
 * 获取方向盘的运行状态包括是否错误和运行何种指令
@@ -468,16 +471,18 @@ LIBRARY_API uint32_t set_can_init(uint32_t baud,uint8_t BS1,uint8_t BS2,uint8_t 
 /*
 * 获取CAN的时间片段的初始化值
 *init： 输出初始化值的CAN_initType 指针
+* 成功执行，返回1,失败返回0。
 */
-LIBRARY_API void get_can_init(CAN_initType* init);
+LIBRARY_API int get_can_init(CAN_initType* init);
 
 /*
 * 发送数据到CAN总线
 * id： 消息id，这里使用标准ID（CAN 2.0A）（11位），
 * len： 要发送的数据长度，取值范围0-8
 * data： 要发送的数据的指针
+* 成功执行，返回1,失败返回0。
 */
-LIBRARY_API void can_send(uint32_t id, uint8_t len, uint8_t* data);
+LIBRARY_API int can_send(uint32_t id, uint8_t len, uint8_t* data);
 
 /*
 * 获取CAN数据，CAN数据存储在CAN_dataType类型的FIFO中，每次调用此函数读取一个FIFO数据。
@@ -512,7 +517,7 @@ LIBRARY_API int set_uartForward_init(uint32_t baud, uint8_t bits, uint8_t parity
 * 获取转发串口uart5的通信参数
 *init： 输出转发串口通信参数结构体uartForward_initType指针
 */
-LIBRARY_API void get_uartForward_init(uartForward_initType* init);
+LIBRARY_API int get_uartForward_init(uartForward_initType* init);
 
 /*
 * 发送数据到串口转发口uart5
@@ -583,7 +588,7 @@ typedef enum _extLight_port{
 #define NEO_BGWR (uint8_t)((2<<6) | (3<<4) | (1<<2) | (0)) ///< Transmit as B,G,W,R
 #define NEO_BGRW (uint8_t)((3<<6) | (2<<4) | (1<<2) | (0)) ///< Transmit as B,G,R,W
 
-// FixedColor_buf一些常见的颜色
+// color table 一些常见的颜色
 #define RED        0
 #define GREEN      1
 #define BLUE       2
@@ -715,6 +720,7 @@ LIBRARY_API int extLight_connect_state(void);
 * lednum：		led灯珠数量。
 * ledtype:		led类型:NEO_RGB - NEO_BGRW
 * segmentnum:		段数量：0-255
+* bright:		亮度：0-255
 * 输出：		成功返回1，失败返回0
 */
 LIBRARY_API int exLight_port_init(extLight_portEnum port,uint8_t lednum, uint8_t ledtype, uint8_t segmentnum, uint8_t bright);
@@ -752,6 +758,7 @@ LIBRARY_API int extLight_colorTab_set(extLight_colorTableType* colorTable);
 * color2:		0-11或RED - GRAY
 * color3:		0-11或RED - GRAY
 * speed:		速度0-255
+* option:       选项
 * 输出：		成功返回1，失败返回0
 */
 LIBRARY_API int extLight_mode_set(extLight_portEnum port,uint8_t segment,uint8_t ledstart,uint8_t ledend,uint8_t mode,
@@ -771,10 +778,7 @@ LIBRARY_API int extLight_flash_save(uint8_t block,uint8_t flame, uint8_t line, u
 /*
 *  读取flash数据到指定端口
 * port：		exLight的端口：0-6或Port1-Port7
-* sector：		flash的扇区号：0-4095
-* line:			有多少行：0-255
-* column:		有多少列：0-255
-* color:		指向颜色数组的指针
+* block：		要读取的flash的块区号：0-255
 * 输出：		成功返回1，失败返回0
 */
 LIBRARY_API int extLight_flash_read(uint8_t port, uint8_t block);
