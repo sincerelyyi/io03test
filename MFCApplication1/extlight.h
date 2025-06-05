@@ -3,15 +3,15 @@
 #include "MFCApplication1Dlg.h"
 
 
-// extlight 对话框
+// extLight 对话框
 
-class extlight : public CDialogEx
+class extLight : public CDialogEx
 {
-	DECLARE_DYNAMIC(extlight)
+	DECLARE_DYNAMIC(extLight)
 
 public:
-	extlight(CWnd* pParent = nullptr);   // 标准构造函数
-	virtual ~extlight();
+	extLight(CWnd* pParent = nullptr);   // 标准构造函数
+	virtual ~extLight();
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
@@ -36,7 +36,7 @@ public:
 	CString lednum;
 	CString segmentnum;
 	CString bright;
-	CString colortable;
+	CString colorTable;
 	CString segment;
 	CString ledstart;
 	CString ledend;
@@ -60,4 +60,13 @@ public:
 	afx_msg void OnBnClickedModeSet();
 	afx_msg void OnBnClickedFlashRead();
 	afx_msg void OnBnClickedFlashRead2();
+	CString soft_version;
+	CString hard_version;
+	afx_msg void OnBnClickedSoft();
+	afx_msg void OnBnClickedHard();
+	BOOL receive_hex;
+	BOOL check_newline;
+	CString receive_com;
+	afx_msg void OnBnClickedComReceiveClear2();
+	CEdit idc_receive_com;
 };

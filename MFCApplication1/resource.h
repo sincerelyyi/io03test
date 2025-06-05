@@ -147,8 +147,11 @@
 #define IDC_COM_SEND_CLEAR              1131
 #define BUTTON_FLASH_READ2              1131
 #define IDC_BUTTON5                     1132
+#define BUTTON_SOFT                     1132
 #define IDC_BUTTON6                     1133
+#define BUTTON_HARD                     1133
 #define IDC_EDIT10                      1134
+#define IDC_COM_RECEIVE_CLEAR2          1134
 #define IDC_EDIT11                      1135
 #define IDC_EDIT12                      1136
 #define IDC_BUTTON7                     1137
@@ -205,12 +208,12 @@
 #define IDC_RADIO6                      1176
 #define IDC_CAN_RECEIVE_CLEAR           1176
 #define BUTTON_INIT                     1177
-#define IDC_CHECK_RECEIVE_HEX2          1177
 #define IDC_CHECK_NEWLINE               1177
 #define BUTTON_ENABLE                   1178
 #define IDC_EDIT22                      1179
 #define EDIT_CONNECT_STATUS             1179
 #define IDC_EDIT23                      1180
+#define EDIT_SOFT                       1180
 #define IDC_EDIT24                      1181
 #define BUTTON_DISABLE                  1181
 #define IDC_SLIDER45                    1182
@@ -241,6 +244,8 @@
 #define COMBO_OPTION                    1194
 #define IDC_RADIO12                     1195
 #define COMBO_LEDTYPE_INIT              1195
+#define EDIT_HARD                       1196
+#define IDC_CHECK_NEWLINE2              1197
 #define IDC_EDIT29                      1213
 #define IDC_EDIT30                      1214
 

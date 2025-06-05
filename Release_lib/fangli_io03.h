@@ -604,11 +604,11 @@ typedef struct _extLight_color
 	uint8_t green;
 	uint8_t red;
 	uint8_t write;
-}extlight_colorType;
-typedef struct _extlight_colortable
+}extLight_colorType;
+typedef struct _extLight_colorTable
 {
-	extlight_colorType color[FixedColor_Max];
-}extlight_colortableType;
+	extLight_colorType color[FixedColor_Max];
+}extLight_colorTableType;
 
 //模式选择
 #define FX_MODE_STATIC                   0   //静态模式，灯光保持固定颜色不变
@@ -736,10 +736,10 @@ LIBRARY_API int exLight_port_enable(extLight_portEnum port);
 /*
 *  设置固定颜色表,不配置就用默认的
 *  颜色表由 RED -  GRAY 共 FixedColor_Max个颜色组成，每个颜色由4个分量：B，G，R，W
-* colorTable:	extlight_colortableType类型的颜色表指针。
+* colorTable:	extLight_colorTableType类型的颜色表指针。
 * 输出：		成功返回1，失败返回0
 */
-LIBRARY_API int extLight_colorTab_set(extlight_colortableType* colorTable);
+LIBRARY_API int extLight_colorTab_set(extLight_colorTableType* colorTable);
 
 /*
 *  设置灯光模式
@@ -766,7 +766,7 @@ LIBRARY_API int extLight_mode_set(extLight_portEnum port,uint8_t segment,uint8_t
 * color:		指向颜色数组的指针。颜色数组的大小为flame * line * column * 4
 * 输出：		成功返回1，失败返回0
 */
-LIBRARY_API int extLight_flash_save(uint8_t block,uint8_t flame, uint8_t line, uint8_t column, extlight_colorType* colorbuff);
+LIBRARY_API int extLight_flash_save(uint8_t block,uint8_t flame, uint8_t line, uint8_t column, extLight_colorType* colorbuff);
 
 /*
 *  读取flash数据到指定端口

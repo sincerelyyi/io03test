@@ -1,21 +1,21 @@
-﻿// extlight.cpp: 实现文件
+﻿// extLight.cpp: 实现文件
 //
 
 #include "pch.h"
 #include "afxdialogex.h"
-#include "extlight.h"
+#include "extLight.h"
 #include "resource.h"
 #include "fangli_io03.h"
 #include "MFCApplication1Dlg.h"
 
 
-// extlight 对话框
+// extLight 对话框
 extern CMFCApplication1Dlg dlg;
-IMPLEMENT_DYNAMIC(extlight, CDialogEx)
+IMPLEMENT_DYNAMIC(extLight, CDialogEx)
 
 
 
-extlight::extlight(CWnd* pParent /*=nullptr*/)
+extLight::extLight(CWnd* pParent /*=nullptr*/)
     : CDialogEx(IDD_EXTLIGHT, pParent)
     , isconnect(_T("断开连接"))
 
@@ -29,7 +29,7 @@ extlight::extlight(CWnd* pParent /*=nullptr*/)
 
     , port_disable(_T("Port1"))
 
-    , colortable(_T("00 00 ff 00 00 ff 00 00 ff 00 00 00 ff ff ff 00 00 00 00 00 00 ff ff 00 ff ff 00 00 ff 00 ff 00 80 ff 40 00 00 30 ff 00 93 14 ff 00 10 10 10 00"))
+    , colorTable(_T("00 00 ff 00 00 ff 00 00 ff 00 00 00 ff ff ff 00 00 00 00 00 00 ff ff 00 ff ff 00 00 ff 00 ff 00 80 ff 40 00 00 30 ff 00 93 14 ff 00 10 10 10 00"))
 
     , port_mode(_T("Port1"))
     , segment(_T("0"))
@@ -50,15 +50,20 @@ extlight::extlight(CWnd* pParent /*=nullptr*/)
     , linenum(_T("3"))
     , columnnum(_T("2"))
     , colorbuff(_T("00 00 ff 00 00 ff 00 00 ff 00 00 00 ff ff ff 00 00 00 00 00 00 ff ff 00 ff ff 00 00 ff 00 ff 00 80 ff 40 00 00 30 ff 00 93 14 ff 00 10 10 10 00"))
+    , soft_version(_T(""))
+    , hard_version(_T(""))
+    , receive_hex(TRUE)
+    , check_newline(TRUE)
+    , receive_com(_T(""))
 {
 
 }
 
-extlight::~extlight()
+extLight::~extLight()
 {
 }
 
-void extlight::DoDataExchange(CDataExchange* pDX)
+void extLight::DoDataExchange(CDataExchange* pDX)
 {
     CDialogEx::DoDataExchange(pDX);
     DDX_Text(pDX, EDIT_CONNECT_STATUS, isconnect);
@@ -69,8 +74,8 @@ void extlight::DoDataExchange(CDataExchange* pDX)
     DDX_Text(pDX, EDIT_LEDNUM_INIT, lednum);
     DDX_Text(pDX, EDIT_SEGMENTNUM_INIT, segmentnum);
     DDX_Text(pDX, EDIT_BRIGHT_INIT, bright);
-    DDX_Text(pDX, EDIT_COLORTABLE, colortable);
-    DDV_MaxChars(pDX, colortable, 144);
+    DDX_Text(pDX, EDIT_COLORTABLE, colorTable);
+    DDV_MaxChars(pDX, colorTable, 144);
     DDX_Text(pDX, EDIT_SEGMENT, segment);
     DDX_Text(pDX, EDIT_LEDSTART, ledstart);
     DDX_Text(pDX, EDIT_LEDEND, ledend);
@@ -87,37 +92,115 @@ void extlight::DoDataExchange(CDataExchange* pDX)
     DDX_CBString(pDX, COMBO_OPTION, option);
     DDX_Text(pDX, EDIT_COLUMN, columnnum);
     DDX_Text(pDX, EDIT_COLORBUFF, colorbuff);
-    DDV_MaxChars(pDX, colortable, _ttoi(flamenum) * _ttoi(linenum) * _ttoi(columnnum) * 4 *3);
+    DDV_MaxChars(pDX, colorTable, _ttoi(flamenum) * _ttoi(linenum) * _ttoi(columnnum) * 4 * 3);
     DDX_CBString(pDX, COMBO_PORT_FLASHREAD, port_flashread);
+    DDX_Text(pDX, EDIT_SOFT, soft_version);
+    DDX_Text(pDX, EDIT_HARD, hard_version);
+    DDX_Check(pDX, IDC_CHECK_RECEIVE_HEX, receive_hex);
+    DDX_Check(pDX, IDC_CHECK_NEWLINE2, check_newline);
+    DDX_Text(pDX, IDC_RECEIVE_COM, receive_com);
+    DDX_Control(pDX, IDC_RECEIVE_COM, idc_receive_com);
 }
 
-BOOL extlight::OnInitDialog()
+BOOL extLight::OnInitDialog()
 {
     CDialogEx::OnInitDialog();
-    SetTimer(3, 50, NULL); // 启动定时器1（1秒间隔）
+    SetTimer(3, 10, NULL); // 启动定时器1（1秒间隔）
     return TRUE;
 }
 
-void extlight::OnTimer(UINT_PTR nIDEvent)
+void extLight::OnTimer(UINT_PTR nIDEvent)
 {
     // TODO: 在此添加消息处理程序代码和/或调用默认值
+    static int connect_old = 0;
+    int connect = extLight_connect_state();
+
     if (nIDEvent == 3) // 替换YOUR_TIMER_ID为你的定时器ID
     {
         UpdateData(TRUE);
-        if (extLight_connect_state())
+        if (connect_old != connect)
         {
-            isconnect = _T("已经连接");
+            connect_old = connect;
+            if (extLight_connect_state())
+            {
+                isconnect = _T("已经连接");
+            }
+            else
+            {
+                isconnect = _T("断开连接");
+            } 
+            UpdateData(FALSE);
+            //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
+            idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+        }
+
+        wchar_t wideStr[100] = { 0 };
+        size_t done_len;        
+        static CString software_old = soft_version;
+        static CString hardware_old = hard_version;
+        mbstowcs_s(&done_len, wideStr, (char*)exLight_software_version(), 100);
+        soft_version = wideStr;
+        if (software_old != soft_version)
+        {
+            software_old = soft_version;
+            UpdateData(FALSE);
+        }
+        mbstowcs_s(&done_len, wideStr, (char*)exLight_hardware_version(), 100);
+        hard_version = wideStr;
+        if (hardware_old != hard_version)
+        {
+            hardware_old = hard_version;
+            UpdateData(FALSE);
+        }
+
+        // com转发接收数据
+        static uint32_t no_data_count = 100;
+        uint8_t com_buff[4096] = { 0 };
+        uint16_t com_len = 0;
+        CString temp;
+        com_len = uartForward_receive(4096, com_buff);
+        if (receive_com.GetLength() > 10 * 1024)
+        {
+            receive_com.Delete(0, receive_com.GetLength() - 10 * 1024);
+        }
+        if (com_len)
+        {
+            no_data_count = 0;
+            if (receive_hex)
+            {
+                for (uint16_t i = 0; i < com_len; i++)
+                {
+                    temp.Format(_T("%.2X "), com_buff[i]);
+                    receive_com += temp;
+                }
+            }
+            else
+            {
+                wchar_t wideStr[4096] = { 0 };
+                size_t done_len;
+                mbstowcs_s(&done_len, wideStr, (char*)com_buff, com_len);
+                receive_com += wideStr;
+            }
+            UpdateData(FALSE);
+            //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
+            idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
         }
         else
         {
-            isconnect = _T("断开连接");
+            no_data_count++;
+            if (check_newline && (no_data_count == 3))
+            {
+                receive_com += _T("\r\n");
+                UpdateData(FALSE);
+                //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
+                idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+            }
         }
-        //UpdateData(FALSE);
     }
     CDialogEx::OnTimer(nIDEvent);
 }
 
-void extlight::OnClose()
+void extLight::OnClose()
 {
     // TODO: 在此添加消息处理程序代码和/或调用默认值
     father->ShowWindow(SW_SHOW);        // 隐藏窗口
@@ -126,22 +209,23 @@ void extlight::OnClose()
     CDialogEx::OnClose();
 }
 
-BEGIN_MESSAGE_MAP(extlight, CDialogEx)
+BEGIN_MESSAGE_MAP(extLight, CDialogEx)
     ON_WM_TIMER()
     ON_WM_CLOSE()
-    ON_BN_CLICKED(BUTTON_INIT, &extlight::OnBnClickedInit)
-    ON_BN_CLICKED(BUTTON_ENABLE, &extlight::OnBnClickedEnable)
-    ON_BN_CLICKED(BUTTON_DISABLE, &extlight::OnBnClickedDisable)
-    ON_BN_CLICKED(BUTTON_COLORTABLE, &extlight::OnBnClickedColortable)
-    ON_BN_CLICKED(BUTTON_MODE_SET, &extlight::OnBnClickedModeSet)
-    ON_BN_CLICKED(BUTTON_FLASH_READ, &extlight::OnBnClickedFlashRead)
-    ON_BN_CLICKED(BUTTON_FLASH_READ2, &extlight::OnBnClickedFlashRead2)
+    ON_BN_CLICKED(BUTTON_INIT, &extLight::OnBnClickedInit)
+    ON_BN_CLICKED(BUTTON_ENABLE, &extLight::OnBnClickedEnable)
+    ON_BN_CLICKED(BUTTON_DISABLE, &extLight::OnBnClickedDisable)
+    ON_BN_CLICKED(BUTTON_COLORTABLE, &extLight::OnBnClickedColortable)
+    ON_BN_CLICKED(BUTTON_MODE_SET, &extLight::OnBnClickedModeSet)
+    ON_BN_CLICKED(BUTTON_FLASH_READ, &extLight::OnBnClickedFlashRead)
+    ON_BN_CLICKED(BUTTON_FLASH_READ2, &extLight::OnBnClickedFlashRead2)
+    ON_BN_CLICKED(IDC_COM_RECEIVE_CLEAR2, &extLight::OnBnClickedComReceiveClear2)
 END_MESSAGE_MAP()
 
 
-// extlight 消息处理程序
+// extLight 消息处理程序
 
-void extlight::OnBnClickedInit()
+void extLight::OnBnClickedInit()
 {
     // TODO: 在此添加控件通知处理程序代码
     CString string;
@@ -325,7 +409,7 @@ void extlight::OnBnClickedInit()
     exLight_port_init(_port, _lednum, _ledtype, _segmentnum, _bright);
 }
 
-void extlight::OnBnClickedEnable()
+void extLight::OnBnClickedEnable()
 {
     // TODO: 在此添加控件通知处理程序代码
     CString string;
@@ -366,7 +450,7 @@ void extlight::OnBnClickedEnable()
     exLight_port_enable(_port);
 }
 
-void extlight::OnBnClickedDisable()
+void extLight::OnBnClickedDisable()
 {
     // TODO: 在此添加控件通知处理程序代码
     CString string;
@@ -407,15 +491,15 @@ void extlight::OnBnClickedDisable()
     exLight_port_disable(_port);
 }
 
-void extlight::OnBnClickedColortable()
+void extLight::OnBnClickedColortable()
 {
     // TODO: 在此添加控件通知处理程序代码
-    extlight_colortableType _colorTable = { 0 };
+    extLight_colorTableType _colorTable = { 0 };
     CString token;
     unsigned int value = 0;
     int pos = 0;
     int i = 0;
-    while ((token = colortable.Tokenize(_T(" "), pos)) != _T(""))
+    while ((token = colorTable.Tokenize(_T(" "), pos)) != _T(""))
     {
         // 将字符串解析为十六进制整数
         if (swscanf_s(token, _T("%x"), &value) == 1) {
@@ -431,7 +515,7 @@ void extlight::OnBnClickedColortable()
     extLight_colorTab_set(&_colorTable);
 }
 
-void extlight::OnBnClickedModeSet()
+void extLight::OnBnClickedModeSet()
 {
     // TODO: 在此添加控件通知处理程序代码
     extLight_portEnum _port;
@@ -901,7 +985,7 @@ void extlight::OnBnClickedModeSet()
         _color[0], _color[1], _color[2], _speed, _option);
 }
 
-void extlight::OnBnClickedFlashRead()
+void extLight::OnBnClickedFlashRead()
 {
     // TODO: 在此添加控件通知处理程序代码
     extLight_portEnum _port;
@@ -945,7 +1029,7 @@ void extlight::OnBnClickedFlashRead()
     extLight_flash_read(_port, _block);
 }
 
-void extlight::OnBnClickedFlashRead2()
+void extLight::OnBnClickedFlashRead2()
 {
     // TODO: 在此添加控件通知处理程序代码
     uint8_t _block;
@@ -964,7 +1048,7 @@ void extlight::OnBnClickedFlashRead2()
     {
         return;
     }
-    extlight_colorType* _colorbuff = new extlight_colorType[color_size]{};
+    extLight_colorType* _colorbuff = new extLight_colorType[color_size]{};
 
     CString token;
     unsigned int value = 0;
@@ -985,4 +1069,12 @@ void extlight::OnBnClickedFlashRead2()
     }
    extLight_flash_save(_block, _flame, _line, _column, _colorbuff);
    delete[] _colorbuff;
+}
+
+void extLight::OnBnClickedComReceiveClear2()
+{
+    // TODO: 在此添加控件通知处理程序代码
+    UpdateData(TRUE);
+    receive_com = _T("");
+    UpdateData(FALSE);
 }

@@ -9,7 +9,7 @@
 #include "afxdialogex.h"
 #include "fangli_io03.h"
 #include "CAN.h"
-#include "extlight.h"
+#include "extLight.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -1120,13 +1120,13 @@ void CMFCApplication1Dlg::OnBnClickedButton10()
 void CMFCApplication1Dlg::OnBnClickedExtlightOpen()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	extlight* myextlight = NULL;
-	if (!myextlight)
+	extLight* myextLight = NULL;
+	if (!myextLight)
 	{
-		myextlight = new extlight(this);
-		myextlight->Create(IDD_EXTLIGHT, GetDesktopWindow());
-		myextlight->ShowWindow(SW_SHOW);
-		myextlight->father = this;
+		myextLight = new extLight(this);
+		myextLight->Create(IDD_EXTLIGHT, GetDesktopWindow());
+		myextLight->ShowWindow(SW_SHOW);
+		myextLight->father = this;
 	}
 	ShowWindow(SW_HIDE);        // 隐藏窗口
 }
