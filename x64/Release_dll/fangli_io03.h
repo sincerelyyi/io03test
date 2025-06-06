@@ -757,12 +757,12 @@ LIBRARY_API int extLight_colorTab_set(extLight_colorTableType* colorTable);
 * color1:		0-11或RED - GRAY
 * color2:		0-11或RED - GRAY
 * color3:		0-11或RED - GRAY
-* speed:		速度0-255
+* speed:		速度0-0xffff
 * option:       选项
 * 输出：		成功返回1，失败返回0
 */
 LIBRARY_API int extLight_mode_set(extLight_portEnum port,uint8_t segment,uint8_t ledstart,uint8_t ledend,uint8_t mode,
-	uint8_t color1, uint8_t color2, uint8_t color3,uint8_t speed,uint8_t option);
+	uint8_t color1, uint8_t color2, uint8_t color3,uint16_t speed,uint8_t option);
 
 /*
 *  保存数据到flash

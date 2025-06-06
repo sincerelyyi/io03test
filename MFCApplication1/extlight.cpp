@@ -91,7 +91,6 @@ void extLight::DoDataExchange(CDataExchange* pDX)
     DDX_CBString(pDX, COMBO_OPTION, option);
     DDX_Text(pDX, EDIT_COLUMN, columnnum);
     DDX_Text(pDX, EDIT_COLORBUFF, colorbuff);
-    DDV_MaxChars(pDX, colorTable, _ttoi(flamenum) * _ttoi(linenum) * _ttoi(columnnum) * 4 * 3);
     DDX_CBString(pDX, COMBO_PORT_FLASHREAD, port_flashread);
     DDX_Text(pDX, EDIT_SOFT, soft_version);
     DDX_Text(pDX, EDIT_HARD, hard_version);
@@ -516,7 +515,7 @@ void extLight::OnBnClickedModeSet()
     uint8_t _ledend;
     uint8_t _mode;
     uint8_t _color[3];
-    uint8_t _speed;
+    uint16_t _speed;
     uint8_t _option;
     CString string;
     
