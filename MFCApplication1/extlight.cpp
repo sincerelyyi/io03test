@@ -134,20 +134,16 @@ void extLight::OnTimer(UINT_PTR nIDEvent)
 
         wchar_t wideStr[4096] = { 0 };
         size_t done_len;        
-        static CString software_old = soft_version;
-        static CString hardware_old = hard_version;
         mbstowcs_s(&done_len, wideStr, (char*)exLight_software_version(), 100);
-        soft_version = wideStr;
-        if (software_old != soft_version)
+        if (soft_version != wideStr)
         {
-            software_old = soft_version;
+            soft_version = wideStr;
             UpdateData(FALSE);
         }
         mbstowcs_s(&done_len, wideStr, (char*)exLight_hardware_version(), 100);
-        hard_version = wideStr;
-        if (hardware_old != hard_version)
+        if (hard_version != wideStr)
         {
-            hardware_old = hard_version;
+            hard_version = wideStr;
             UpdateData(FALSE);
         }
 
