@@ -62,8 +62,6 @@ public:
 	afx_msg void OnBnClickedFlashRead2();
 	CString soft_version;
 	CString hard_version;
-	afx_msg void OnBnClickedSoft();
-	afx_msg void OnBnClickedHard();
 	BOOL receive_hex;
 	BOOL check_newline;
 	CString receive_com;

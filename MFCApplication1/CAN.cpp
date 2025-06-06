@@ -30,7 +30,6 @@ CAN::CAN(CWnd* pParent /*=nullptr*/)
     , send_hex(TRUE)
     , receive_hex(TRUE)
     , send_com(_T("a1 a2 a3 a4 01 02 03 04"))
-    , receive_com(_T(""))
     , check_newline(TRUE)
 {
 
@@ -67,7 +66,6 @@ void CAN::DoDataExchange(CDataExchange* pDX)
     DDX_Check(pDX, IDC_CHECK_SEND_HEX, send_hex);
     DDX_Check(pDX, IDC_CHECK_RECEIVE_HEX, receive_hex);
     DDX_Text(pDX, IDC_SEND_COM, send_com);
-    DDX_Text(pDX, IDC_RECEIVE_COM, receive_com);
     DDX_Control(pDX, IDC_RECEIVE_COM, idc_receive_com);
     DDX_Check(pDX, IDC_CHECK_NEWLINE, check_newline);
 }
@@ -121,12 +119,14 @@ void CAN::OnTimer(UINT_PTR nIDEvent)
             UpdateData(FALSE);
         }
         // com转发接收数据
+        wchar_t wideStr[4096] = { 0 };
+        size_t done_len;
         uint8_t com_buff[4096] = { 0 };
         uint16_t com_len = 0;
         com_len = uartForward_receive(4096, com_buff);
         if (receive_com.GetLength() > 10 * 1024)
         {
-            receive_com.Delete(0,receive_com.GetLength() - 10 * 1024);
+            receive_com.Delete(0, receive_com.GetLength() - 10 * 1024);
         }
         if (com_len)
         {
@@ -141,24 +141,22 @@ void CAN::OnTimer(UINT_PTR nIDEvent)
             }
             else
             {
-                wchar_t wideStr[4096] = { 0 };
-                size_t done_len;
-                mbstowcs_s(&done_len,wideStr,(char *)com_buff, com_len);
+                mbstowcs_s(&done_len, wideStr, (char*)com_buff, com_len);
                 receive_com += wideStr;
             }
-            UpdateData(FALSE);
-            //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
-            idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+            //idc_receive_com.SetSel(-1, -1);                     // 移动光标到末尾
+            idc_receive_com.SetWindowTextW(receive_com);
+            idc_receive_com.LineScroll(idc_receive_com.GetLineCount() - 1);
         }
         else
         {
             no_data_count++;
-            if (check_newline && (no_data_count == 3))
+            if (check_newline && (no_data_count == 5))
             {
                 receive_com += _T("\r\n");
-                UpdateData(FALSE);
-                //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
-                idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+                //idc_receive_com.SetSel(-1, -1);                     // 移动光标到末尾
+                idc_receive_com.SetWindowTextW(receive_com);
+                idc_receive_com.LineScroll(idc_receive_com.GetLineCount() - 1);
             }
         }
     }
@@ -316,7 +314,6 @@ void CAN::OnBnClickedComSend()
 void CAN::OnBnClickedComReceiveClear()
 {
     // TODO: 在此添加控件通知处理程序代码
-    UpdateData(TRUE);
     receive_com = _T("");
-    UpdateData(FALSE);
+    idc_receive_com.SetWindowTextW(receive_com);
 }

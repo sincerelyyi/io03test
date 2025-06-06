@@ -54,7 +54,6 @@ extLight::extLight(CWnd* pParent /*=nullptr*/)
     , hard_version(_T(""))
     , receive_hex(TRUE)
     , check_newline(TRUE)
-    , receive_com(_T(""))
 {
 
 }
@@ -98,7 +97,6 @@ void extLight::DoDataExchange(CDataExchange* pDX)
     DDX_Text(pDX, EDIT_HARD, hard_version);
     DDX_Check(pDX, IDC_CHECK_RECEIVE_HEX, receive_hex);
     DDX_Check(pDX, IDC_CHECK_NEWLINE2, check_newline);
-    DDX_Text(pDX, IDC_RECEIVE_COM, receive_com);
     DDX_Control(pDX, IDC_RECEIVE_COM, idc_receive_com);
 }
 
@@ -134,7 +132,7 @@ void extLight::OnTimer(UINT_PTR nIDEvent)
             idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
         }
 
-        wchar_t wideStr[100] = { 0 };
+        wchar_t wideStr[4096] = { 0 };
         size_t done_len;        
         static CString software_old = soft_version;
         static CString hardware_old = hard_version;
@@ -176,24 +174,22 @@ void extLight::OnTimer(UINT_PTR nIDEvent)
             }
             else
             {
-                wchar_t wideStr[4096] = { 0 };
-                size_t done_len;
                 mbstowcs_s(&done_len, wideStr, (char*)com_buff, com_len);
                 receive_com += wideStr;
             }
-            UpdateData(FALSE);
-            //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
-            idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+            //idc_receive_com.SetSel(-1, -1);                     // 移动光标到末尾
+            idc_receive_com.SetWindowTextW(receive_com);
+            idc_receive_com.LineScroll(idc_receive_com.GetLineCount()-1);
         }
         else
         {
             no_data_count++;
-            if (check_newline && (no_data_count == 3))
+            if (check_newline && (no_data_count == 5))
             {
                 receive_com += _T("\r\n");
-                UpdateData(FALSE);
-                //idc_receive_com.SendMessage(WM_VSCROLL, SB_BOTTOM, 0);
-                idc_receive_com.LineScroll(idc_receive_com.GetLineCount());
+                //idc_receive_com.SetSel(-1, -1);                     // 移动光标到末尾
+                idc_receive_com.SetWindowTextW(receive_com);
+                idc_receive_com.LineScroll(idc_receive_com.GetLineCount()-1);
             }
         }
     }
@@ -1074,7 +1070,6 @@ void extLight::OnBnClickedFlashRead2()
 void extLight::OnBnClickedComReceiveClear2()
 {
     // TODO: 在此添加控件通知处理程序代码
-    UpdateData(TRUE);
     receive_com = _T("");
-    UpdateData(FALSE);
+    idc_receive_com.SetWindowTextW(receive_com);
 }
