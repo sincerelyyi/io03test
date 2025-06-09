@@ -54,6 +54,11 @@ extLight::extLight(CWnd* pParent /*=nullptr*/)
     , hard_version(_T(""))
     , receive_hex(TRUE)
     , check_newline(TRUE)
+    , port_input(_T("Port1"))
+    , segment_input(_T("0"))
+    , input_src(_T("0a 0a"))
+    , input_len(_T("2"))
+    , input_cnt(_T("2"))
 {
 
 }
@@ -97,12 +102,21 @@ void extLight::DoDataExchange(CDataExchange* pDX)
     DDX_Check(pDX, IDC_CHECK_RECEIVE_HEX, receive_hex);
     DDX_Check(pDX, IDC_CHECK_NEWLINE2, check_newline);
     DDX_Control(pDX, IDC_RECEIVE_COM, idc_receive_com);
+    DDX_CBString(pDX, COMBO_PORT_INPUT, port_input);
+    DDX_Text(pDX, EDIT_SEGMENT_INPUT, segment_input);
+    DDX_Text(pDX, EDIT_INPUT_LEN, input_len);
+    DDX_Text(pDX, EDIT_INPUT_CNT, input_cnt);
+    DDX_Text(pDX, EDIT_INUT_SRC, input_src);
+    DDX_Control(pDX, IDC_SLIDER_SRC, slider_src);
+    DDX_Control(pDX, IDC_EDIT_SRC, edit_src);
 }
 
 BOOL extLight::OnInitDialog()
 {
     CDialogEx::OnInitDialog();
     SetTimer(3, 10, NULL); // 启动定时器1（1秒间隔）
+    slider_src.SetRange(0, 255);
+    edit_src.SetWindowTextW(_T("0"));
     return TRUE;
 }
 
@@ -211,6 +225,8 @@ BEGIN_MESSAGE_MAP(extLight, CDialogEx)
     ON_BN_CLICKED(BUTTON_FLASH_READ, &extLight::OnBnClickedFlashRead)
     ON_BN_CLICKED(BUTTON_FLASH_READ2, &extLight::OnBnClickedFlashRead2)
     ON_BN_CLICKED(IDC_COM_RECEIVE_CLEAR2, &extLight::OnBnClickedComReceiveClear2)
+    ON_BN_CLICKED(BUTTON_INPUT, &extLight::OnBnClickedInput)
+    ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER_SRC, &extLight::OnNMCustomdrawSliderSrc)
 END_MESSAGE_MAP()
 
 
@@ -1067,4 +1083,131 @@ void extLight::OnBnClickedComReceiveClear2()
     // TODO: 在此添加控件通知处理程序代码
     receive_com = _T("");
     idc_receive_com.SetWindowTextW(receive_com);
+}
+
+void extLight::OnBnClickedInput()
+{
+    // TODO: 在此添加控件通知处理程序代码
+    CString string;
+    extLight_portEnum _port;
+    uint8_t _segment;
+    uint16_t _len;
+    uint8_t _cnt;
+
+
+    string = port_input;
+    if (string == _T("Port1"))
+    {
+        _port = Port1;
+    }
+    else if (string == _T("Port2"))
+    {
+        _port = Port2;
+    }
+    else if (string == _T("Port3"))
+    {
+        _port = Port3;
+    }
+    else if (string == _T("Port4"))
+    {
+        _port = Port4;
+    }
+    else if (string == _T("Port5"))
+    {
+        _port = Port5;
+    }
+    else if (string == _T("Port6"))
+    {
+        _port = Port6;
+    }
+    else if (string == _T("Port7"))
+    {
+        _port = Port7;
+    }
+    else
+    {
+        return;
+    }
+    _segment = _ttoi(segment_input);
+    _len = _ttoi(input_len);
+    _cnt = _ttoi(input_cnt);
+    uint8_t* _src = new uint8_t[_len]{ 0 };
+
+    CString token;
+    unsigned int value = 0;
+    int pos = 0;
+    unsigned int i = 0;
+    while ((token = input_src.Tokenize(_T(" "), pos)) != _T(""))
+    {
+        // 将字符串解析为十六进制整数
+        if (swscanf_s(token, _T("%x"), &value) == 1) {
+            if (value <= 0xFF) {
+                ((char*)(_src))[i++] = static_cast<char>(value);
+                if (i >= _len)
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    exLight_data_input(_port, _segment, _len, _src, _cnt);
+    delete[] _src;
+}
+
+void extLight::OnNMCustomdrawSliderSrc(NMHDR* pNMHDR, LRESULT* pResult)
+{
+    LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
+    // TODO: 在此添加控件通知处理程序代码
+    CString string;
+    extLight_portEnum _port;
+    uint8_t _segment;
+    uint8_t _cnt;
+    static uint8_t src_old = 0;
+
+
+    string = port_input;
+    if (string == _T("Port1"))
+    {
+        _port = Port1;
+    }
+    else if (string == _T("Port2"))
+    {
+        _port = Port2;
+    }
+    else if (string == _T("Port3"))
+    {
+        _port = Port3;
+    }
+    else if (string == _T("Port4"))
+    {
+        _port = Port4;
+    }
+    else if (string == _T("Port5"))
+    {
+        _port = Port5;
+    }
+    else if (string == _T("Port6"))
+    {
+        _port = Port6;
+    }
+    else if (string == _T("Port7"))
+    {
+        _port = Port7;
+    }
+    else
+    {
+        return;
+    }
+    _segment = _ttoi(segment_input);
+    _cnt = _ttoi(input_cnt);
+    uint8_t _src = slider_src.GetPos();
+    if(src_old != _src)
+    {
+        exLight_data_input(_port, _segment, 1, &_src, _cnt);
+        string.Format(_T("%d"), _src);
+        edit_src.SetWindowTextW(string);
+        src_old = _src;
+    }
+    *pResult = 0;
 }

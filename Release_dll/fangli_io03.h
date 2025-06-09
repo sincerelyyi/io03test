@@ -784,6 +784,18 @@ LIBRARY_API int extLight_flash_save(uint8_t block,uint8_t flame, uint8_t line, u
 LIBRARY_API int extLight_flash_read(uint8_t port, uint8_t block);
 
 /*
+* 控制数据传入
+* port：		exLight的端口：0-6或Port1-Port7
+* segment:		段号
+* extDateLen    要传入数据extDataSrc的字节数
+* extDataSrc    要传入的数据指针
+* extDataCnt    要传入的数据数量
+* 备注：		extDataSrc，extDataCnt在不同的模式有不同的意思，参考《Light_001通讯协议》
+* 输出：        成功返回1，失败返回0
+*/
+LIBRARY_API int exLight_data_input(extLight_portEnum port, uint8_t segment,uint16_t extDateLen,uint8_t* extDataSrc,uint8_t extDataCnt);
+
+/*
 *获取extLight 固件版本号
 * 输出：char字符穿开始地址
 */

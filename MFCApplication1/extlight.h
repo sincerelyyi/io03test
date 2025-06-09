@@ -67,4 +67,13 @@ public:
 	CString receive_com;
 	afx_msg void OnBnClickedComReceiveClear2();
 	CEdit idc_receive_com;
+	CString port_input;
+	CString segment_input;
+	CString input_len;
+	CString input_cnt;
+	CString input_src;
+	afx_msg void OnBnClickedInput();
+	afx_msg void OnNMCustomdrawSliderSrc(NMHDR* pNMHDR, LRESULT* pResult);
+	CSliderCtrl slider_src;
+	CEdit edit_src;
 };

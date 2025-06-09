@@ -148,6 +148,7 @@
 #define BUTTON_FLASH_READ2              1131
 #define IDC_BUTTON5                     1132
 #define BUTTON_SOFT                     1132
+#define BUTTON_INPUT                    1132
 #define IDC_BUTTON6                     1133
 #define BUTTON_HARD                     1133
 #define IDC_EDIT10                      1134
@@ -167,9 +168,12 @@
 #define IDC_SLIDER44                    1145
 #define EDIT_LEDEND                     1145
 #define IDC_EDIT18                      1146
+#define EDIT_SEGMENT_INPUT              1146
 #define IDC_EDIT19                      1147
+#define EDIT_INPUT_CNT                  1147
 #define IDC_EDIT20                      1148
 #define IDC_EDIT21                      1149
+#define EDIT_INPUT_LEN                  1149
 #define IDC_RADIO1                      1150
 #define EDIT_SPEED                      1150
 #define IDC_BUTTON10                    1151
@@ -190,6 +194,7 @@
 #define EDIT_LINE                       1158
 #define IDC_DATA                        1159
 #define EDIT_COLUMN                     1159
+#define IDC_EDIT_SRC                    1160
 #define IDC_COMBO_BAUD                  1165
 #define IDC_SEND_COM                    1166
 #define IDC_COMBO_PARIT                 1167
@@ -246,6 +251,9 @@
 #define COMBO_LEDTYPE_INIT              1195
 #define EDIT_HARD                       1196
 #define IDC_CHECK_NEWLINE2              1197
+#define COMBO_PORT_INPUT                1198
+#define EDIT_INUT_SRC                   1199
+#define IDC_SLIDER_SRC                  1200
 #define IDC_EDIT29                      1213
 #define IDC_EDIT30                      1214
 
@@ -255,7 +263,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        138
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1186
+#define _APS_NEXT_CONTROL_VALUE         1201
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
