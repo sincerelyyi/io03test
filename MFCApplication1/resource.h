@@ -191,7 +191,6 @@
 #define IDC_EDIT33                      1155
 #define IDC_SJW                         1156
 #define EDIT_BLOCK_FLASHWRITE           1156
-#define IDC_EDIT34                      1156
 #define IDC_ID                          1157
 #define EDIT_FLAMENUM                   1157
 #define ADC2                            1157
@@ -204,7 +203,6 @@
 #define IDC_EDIT_SRC                    1160
 #define ADC5                            1160
 #define ADC6                            1161
-#define IDC_EDIT40                      1162
 #define ADC7                            1162
 #define IDC_COMBO_BAUD                  1165
 #define IDC_SEND_COM                    1166
