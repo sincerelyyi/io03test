@@ -810,5 +810,12 @@ LIBRARY_API char* exLight_software_version(void);
 */
 LIBRARY_API char* exLight_hardware_version(void);
 
+/*
+*获取extLight 错误信息
+* 输出：char字符穿开始地址
+*
+*/
+LIBRARY_API char* exLight_get_err(void);
+
 
 

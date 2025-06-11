@@ -76,4 +76,5 @@ public:
 	afx_msg void OnNMCustomdrawSliderSrc(NMHDR* pNMHDR, LRESULT* pResult);
 	CSliderCtrl slider_src;
 	CEdit edit_src;
+	CString edit_err;
 };

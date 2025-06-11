@@ -219,4 +219,12 @@ public:
 	void  steering1_command(void);
 	afx_msg void OnBnClickedButton10();
 	afx_msg void OnBnClickedExtlightOpen();
+	CEdit adc0;
+	CEdit adc1;
+	CEdit adc2;
+	CEdit adc3;
+	CEdit adc4;
+	CEdit adc5;
+	CEdit adc6;
+	CEdit adc7;
 };

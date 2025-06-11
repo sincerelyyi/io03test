@@ -59,6 +59,7 @@ extLight::extLight(CWnd* pParent /*=nullptr*/)
     , input_src(_T("0a 0a"))
     , input_len(_T("2"))
     , input_cnt(_T("2"))
+    , edit_err(_T(""))
 {
 
 }
@@ -109,6 +110,7 @@ void extLight::DoDataExchange(CDataExchange* pDX)
     DDX_Text(pDX, EDIT_INUT_SRC, input_src);
     DDX_Control(pDX, IDC_SLIDER_SRC, slider_src);
     DDX_Control(pDX, IDC_EDIT_SRC, edit_src);
+    DDX_Text(pDX, EDIT_ERR, edit_err);
 }
 
 BOOL extLight::OnInitDialog()
@@ -157,6 +159,12 @@ void extLight::OnTimer(UINT_PTR nIDEvent)
         if (hard_version != wideStr)
         {
             hard_version = wideStr;
+            UpdateData(FALSE);
+        }
+        mbstowcs_s(&done_len, wideStr, (char*)exLight_get_err(), 256);
+        if (edit_err != wideStr)
+        {
+            edit_err = wideStr;
             UpdateData(FALSE);
         }
 

@@ -220,6 +220,14 @@ void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
 
 	DDX_Radio(pDX, IDC_RADIO7, radio7);
 
+	DDX_Control(pDX, ADC0, adc0);
+	DDX_Control(pDX, ADC1, adc1);
+	DDX_Control(pDX, ADC2, adc2);
+	DDX_Control(pDX, ADC3, adc3);
+	DDX_Control(pDX, ADC4, adc4);
+	DDX_Control(pDX, ADC5, adc5);
+	DDX_Control(pDX, ADC6, adc6);
+	DDX_Control(pDX, ADC7, adc7);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
@@ -423,6 +431,7 @@ HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 {
 	static int a;
+	CString temp;
 	if (nIDEvent == 1) // 替换YOUR_TIMER_ID为你的定时器ID  
 	{
 		// 执行与定时器到期相关的操作 
@@ -436,6 +445,22 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		progress6.SetPos(get_adc(5));
 		progress7.SetPos(get_adc(6));
 		progress8.SetPos(get_adc(7));
+		temp.Format(_T("%d"), get_adc(0));
+		adc0.SetWindowTextW(temp);
+		temp.Format(_T("%d"), get_adc(1));
+		adc1.SetWindowTextW(temp);
+		temp.Format(_T("%d"), get_adc(2));
+		adc2.SetWindowTextW(temp);
+		temp.Format(_T("%d"), get_adc(3));
+		adc3.SetWindowTextW(temp);
+		temp.Format(_T("%d"), get_adc(4));
+		adc4.SetWindowTextW(temp);
+		temp.Format(_T("%d"), get_adc(5));
+		adc5.SetWindowTextW(temp);
+		temp.Format(_T("%d"), get_adc(6));
+		adc6.SetWindowTextW(temp);
+		temp.Format(_T("%d"), get_adc(7));
+		adc7.SetWindowTextW(temp);
 		if (slider1.GetPos() == 100)
 		{
 			set_pwm_normal(0,255 - slider19.GetPos());
