@@ -38,6 +38,7 @@ lib_v2.0
 	1，增加串口转发到uart5的功能。
 	2，增加扩展灯板的控制功能
 	3，将大多数void function()函数改为int functon()
+	4，修正OUTPUTx定义错序号的问题。
 */
 
 // base input key_id
@@ -87,14 +88,14 @@ lib_v2.0
 #define OUTPUT_COUNTER0         14
 #define OUTPUT_COUNTER1         15
 
-#define OUTPUT3                 16
-#define OUTPUT2                 17
-#define OUTPUT1                 18
-#define OUTPUT0                 19
-#define OUTPUT7                 20
-#define OUTPUT6                 21
-#define OUTPUT5                 22
-#define OUTPUT4                 23
+#define OUTPUT0                 16
+#define OUTPUT1                 17
+#define OUTPUT2                 18
+#define OUTPUT3                 19
+#define OUTPUT4                 20
+#define OUTPUT5                 21
+#define OUTPUT6                 22
+#define OUTPUT7                 23
 //coin id 
 #define COIN1					0
 #define COIN2					1
