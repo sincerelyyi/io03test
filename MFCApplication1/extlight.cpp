@@ -245,7 +245,7 @@ void extLight::OnBnClickedInit()
     // TODO: 在此添加控件通知处理程序代码
     CString string;
     extLight_portEnum _port;
-    uint8_t _lednum;
+    uint16_t _lednum;
     uint8_t _ledtype;
     uint8_t _segmentnum;
     uint8_t _bright;
@@ -535,8 +535,8 @@ void extLight::OnBnClickedModeSet()
     // TODO: 在此添加控件通知处理程序代码
     extLight_portEnum _port;
     uint8_t _segment;
-    uint8_t _ledstart;
-    uint8_t _ledend;
+    uint16_t _ledstart;
+    uint16_t _ledend;
     uint8_t _mode;
     uint8_t _color[3];
     uint16_t _speed;

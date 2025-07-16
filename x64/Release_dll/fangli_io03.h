@@ -8,7 +8,7 @@
 #else
 #define LIBRARY_API extern	
 #endif  
-#define LIB_VERSION "lib_V2.0"
+#define LIB_VERSION "lib_V2.1"
 /*   版本记录
 *  lib_V1.0：初始版本
 *  lib_V1.1：修正程序启动时，不一定能读取到币数的问题
@@ -39,6 +39,8 @@ lib_v2.0
 	2，增加扩展灯板的控制功能
 	3，将大多数void function()函数改为int functon()
 	4，修正OUTPUTx定义错序号的问题。
+lib_v2.1
+	1，外部灯板指令的lednum，ledstart,ledend由8位改为16位.
 */
 
 // base input key_id
@@ -724,7 +726,7 @@ LIBRARY_API int extLight_connect_state(void);
 * bright:		亮度：0-255
 * 输出：		成功返回1，失败返回0
 */
-LIBRARY_API int exLight_port_init(extLight_portEnum port,uint8_t lednum, uint8_t ledtype, uint8_t segmentnum, uint8_t bright);
+LIBRARY_API int exLight_port_init(extLight_portEnum port,uint16_t lednum, uint8_t ledtype, uint8_t segmentnum, uint8_t bright);
 
 /*
 * 禁止extLight 端口 更新。
@@ -752,8 +754,8 @@ LIBRARY_API int extLight_colorTab_set(extLight_colorTableType* colorTable);
 *  设置灯光模式
 * port：		exLight的端口：0-6或Port1-Port7
 * segment:		段号
-* ledstart:     led开始序号0-255
-* ledstart:     led结束序号0-255
+* ledstart:     led开始序号
+* ledstart:     led结束序号
 * mode:			灯光模式 NEO_RGB - NEO_BGRW
 * color1:		0-11或RED - GRAY
 * color2:		0-11或RED - GRAY
@@ -762,7 +764,7 @@ LIBRARY_API int extLight_colorTab_set(extLight_colorTableType* colorTable);
 * option:       选项
 * 输出：		成功返回1，失败返回0
 */
-LIBRARY_API int extLight_mode_set(extLight_portEnum port,uint8_t segment,uint8_t ledstart,uint8_t ledend,uint8_t mode,
+LIBRARY_API int extLight_mode_set(extLight_portEnum port,uint8_t segment,uint16_t ledstart,uint16_t ledend,uint8_t mode,
 	uint8_t color1, uint8_t color2, uint8_t color3,uint16_t speed,uint8_t option);
 
 /*
